@@ -1,6 +1,8 @@
-#include "stdio.h"
+#include <stdio.h>
 #include "stdbool.h"
+
 int const SizeValues = 10000;
+
 int main()
 {
     int size = 0;
