@@ -1,24 +1,22 @@
 #include <stdio.h>
-
+#include "malloc.h"
 int main()
 {
-    int x = 0;
-    int y = 0;
     int d = 0;
-    int n;
+    int n = 0;
     scanf("%d", &n);
-    int mtrx[n][n];
+    int matrix[n][n];
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            scanf("%d", &mtrx[i][j]);
+            scanf("%d", &matrix[i][j]);
         }
     }
-    x = n / 2;
-    y = n / 2;
+    int x = n / 2;
+    int y = n / 2;
     for (int k = 1; k <= (n - 1); k++) {
         for (int j = 0; j < (k == (n - 1) ? 3 : 2); j++) {
             for (int i = 0; i < k; i++) {
-                printf("%d%s", mtrx[x][y], " ");
+                printf("%d%s", matrix[x][y], " ");
 
                 switch (d) {
                 case 0:
@@ -39,6 +37,6 @@ int main()
         }
 
     }
-    printf("%d", mtrx[x][y]);
-
+    printf("%d", matrix[x][y]);
+    free(matrix);
 }
