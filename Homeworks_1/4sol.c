@@ -1,6 +1,7 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
+
 int main()
 {
     int n = 0;
