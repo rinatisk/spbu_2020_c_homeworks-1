@@ -18,6 +18,5 @@ int main()
         if (a[i]) {
             printf("%d%s", i, " ");
         }
-
     }
 }
