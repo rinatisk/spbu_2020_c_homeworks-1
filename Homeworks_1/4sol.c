@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
 int main()
 {
-    int n;
+    int n = 0;
     scanf("%d", &n);
     bool a[n];
-    for (int i = 0; i < n; ++i) {
-        a[i] = true;
-    }
+    memset(a, true, n);
     for (int i = 2; i * i <= n; ++i) {
         if (a[i]) {
             for (int j = i * i; j <= n; j += i) {
