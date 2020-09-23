@@ -36,7 +36,6 @@ int main()
             }
             d = (d >= 3 ? 0 : d + 1);
         }
-
     }
     printf("%d", matrix[x][y]);
     free(matrix);
