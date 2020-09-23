@@ -1,10 +1,12 @@
 #include <stdio.h>
-
+#include <stdbool.h>
+int const SizeValues = 10000;
 int main()
 {
-    int size, max = 0;
+    int size = 0;
+    int max = 0;
     scanf("%d", &size);
-    int s[100000];
+    bool s[SizeValues];
     int x[size];
     for (int i = 0; i < size; ++i) {
         scanf("%d", &x[i]);

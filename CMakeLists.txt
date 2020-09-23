@@ -7,4 +7,4 @@ set(SOURCE_LIB
     library/commonUtils/numericOperations.c
 )
 add_library(library ${SOURCE_LIB})
-add_executable(5sol 5sol.c)
+add_executable(5sol Homeworks_1/5sol.c)
