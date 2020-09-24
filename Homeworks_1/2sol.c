@@ -14,21 +14,21 @@ int main()
     int left = 0;
     int right = m - 1;
     while (left < right) {
-        swap(right, left);
+        swap(x[right], x[left]);
         right--;
         left++;
     }
     left = m;
     right = m + n - 1;
     while (left < right) {
-        swap(right, left);
+        swap(x[right], x[left]);
         right--;
         left++;
     }
     left = 0;
     right = m + n - 1;
     while (left < right) {
-        swap(right, left);
+        swap(x[right], x[left]);
         right--;
         left++;
     }
