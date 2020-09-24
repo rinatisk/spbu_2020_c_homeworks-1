@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "../library/commonUtils/numericOperations.h"
 #include <stdlib.h>
+#include "../library/commonUtils/numericOperations.h"
 
 int main()
 {
