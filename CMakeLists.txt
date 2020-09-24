@@ -7,5 +7,8 @@ set(SOURCE_LIB
     library/commonUtils/numericOperations.c
 )
 add_library(library ${SOURCE_LIB})
+
 add_executable(2sol Homeworks_1/2sol.c)
 target_link_libraries(2sol library)
+
+add_executable(sol3 Homeworks_1/3sol.c)
