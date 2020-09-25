@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "../library/commonUtils/numericOperations.h"
 
 int main()
@@ -8,7 +9,7 @@ int main()
     int stepsNumber = 0;
     printf("Write side of matrix size:\n");
     scanf("%d", &sideSize);
-    int **matrix = dynamic_array_alloc(sideSize, sideSize);
+    int** matrix = dynamic_array_alloc(sideSize, sideSize);
     printf("Write matrix elements through a space\n");
     for (int i = 0; i < sideSize; ++i) {
         for (int j = 0; j < sideSize; ++j) {
