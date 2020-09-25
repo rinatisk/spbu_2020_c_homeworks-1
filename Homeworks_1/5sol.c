@@ -4,8 +4,9 @@
 
 #include "../library/commonUtils/arrayOperations.h"
 
-int cmpfunc (const void * a, const void * b) {
-    return ( *(int*)a - *(int*)b );
+int cmpfunc(const void* a, const void* b)
+{
+    return (*(int*) a - *(int*) b);
 }
 
 int main()
@@ -21,7 +22,7 @@ int main()
     }
     qsort(s, size, sizeof(int), cmpfunc);
     for (int i = size - 1; i > 1; --i) {
-        if (s[i] == s[i-1]){
+        if (s[i] == s[i - 1]) {
             max = s[i];
             break;
         }
