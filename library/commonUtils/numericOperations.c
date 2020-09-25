@@ -38,5 +38,4 @@ void dynamic_array_free(int** A, int N)
         int c = a;
         a = b;
         b = c;
-
     }
