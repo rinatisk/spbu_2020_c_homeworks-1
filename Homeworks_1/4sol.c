@@ -5,6 +5,7 @@
 int main()
 {
     int n = 0;
+    printf("Write a number n:\n");
     scanf("%d", &n);
     bool a[n];
     memset(a, true, n);
@@ -15,9 +16,10 @@ int main()
             }
         }
     }
+    printf("Prime number less then n:\n");
     for (int i = 2; i < n; ++i) {
         if (a[i]) {
-            printf("%d%s", i, " ");
+            printf("%d ", i);
         }
     }
 }
