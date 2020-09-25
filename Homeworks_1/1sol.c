@@ -39,6 +39,7 @@ int main()
             }
             currentMove = (currentMove >= 3 ? 0 : currentMove + 1);
         }
+
     }
     printf("%d\n", matrix[x][y]);
     dynamic_array_free(matrix, sideSize);
