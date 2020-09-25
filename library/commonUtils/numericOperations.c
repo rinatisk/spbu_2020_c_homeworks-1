@@ -13,9 +13,9 @@ int max(int a, int b)
 
 int** dynamic_array_alloc(int N, int M)
 {
-    int** A = (int**)malloc(N * sizeof(int*));
+    int** A = (int**) malloc(N * sizeof(int*));
     for (int i = 0; i < N; i++) {
-        A[i] = (int*)malloc(M * sizeof(int));
+        A[i] = (int*) malloc(M * sizeof(int));
     }
     return A;
 }
@@ -29,9 +29,9 @@ void dynamic_array_free(int** A, int N)
     free(A);
 }
 
-    void swap(int a, int b)
-    {
-        int c = a;
-        a = b;
-        b = c;
-    }
+void swap(int a, int b)
+{
+    int c = a;
+    a = b;
+    b = c;
+}
