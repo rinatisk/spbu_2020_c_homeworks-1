@@ -22,8 +22,21 @@ int **dynamic_array_alloc(int N, int M)
 
 void dynamic_array_free(int **A, int N)
 {
+
     for (int i = 0; i < N; i++) {
         free(A[i]);
     }
     free(A);
-}
+
+    for (int i = 0; i < N; i++) {
+        free(A[i]);
+    }
+    free(A);
+
+    void swap(int a, int b)
+    {
+        int c = a;
+        a = b;
+        b = c;
+
+    }
