@@ -6,10 +6,14 @@ set(CMAKE_C_STANDARD 11)
 set(SOURCE_LIB
         library/commonUtils/numericOperations.c
         )
+set(SOURCE_LIB
+        library/commonUtils/arrayOperations.c
+        )
 add_library(library ${SOURCE_LIB})
 
 add_executable(1sol Homeworks_1/1sol.c)
 target_link_libraries(1sol library)
+
 
 
 
