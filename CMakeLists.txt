@@ -12,4 +12,4 @@ set(SOURCE_LIB
 add_library(library ${SOURCE_LIB})
 
 add_executable(5sol Homeworks_1/5sol.c)
-target_link_libraries(5sol library/commonUtils/arrayOperations.c)
+target_link_libraries(5sol library)
