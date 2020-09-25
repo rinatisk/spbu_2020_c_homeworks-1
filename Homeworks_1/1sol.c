@@ -1,25 +1,28 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include "../library/commonUtils/numericOperations.h"
 
 int main()
 {
-    int d = 0;
-    int n = 0;
-    scanf("%d", &n);
-    int matrix[n][n];
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    int currentMove = 0;
+    int sideSize = 0;
+    int stepsNumber = 0;
+    printf("Write side of matrix size:\n");
+    scanf("%d", &sideSize);
+    int **matrix = dynamic_array_alloc(sideSize, sideSize);
+    printf("Write matrix elements through a space\n");
+    for (int i = 0; i < sideSize; ++i) {
+        for (int j = 0; j < sideSize; ++j) {
             scanf("%d", &matrix[i][j]);
         }
     }
-    int x = n / 2;
-    int y = n / 2;
-    for (int k = 1; k <= (n - 1); k++) {
-        for (int j = 0; j < (k == (n - 1) ? 3 : 2); j++) {
+    int x = sideSize / 2;
+    int y = sideSize / 2;
+    for (int k = 1; k < sideSize; k++) {
+        stepsNumber = (k == (sideSize - 1) ? 3 : 2);
+        for (int j = 0; j < stepsNumber; j++) {
             for (int i = 0; i < k; i++) {
-                printf("%d%s", matrix[x][y], " ");
-
-                switch (d) {
+                printf("%d ", matrix[x][y]);
+                switch (currentMove) {
                 case 0:
                     y++;
                     break;
@@ -34,9 +37,9 @@ int main()
                     break;
                 }
             }
-            d = (d >= 3 ? 0 : d + 1);
+            currentMove = (currentMove >= 3 ? 0 : currentMove + 1);
         }
     }
-    printf("%d", matrix[x][y]);
-    free(matrix);
+    printf("%d\n", matrix[x][y]);
+    dynamic_array_free(matrix, sideSize);
 }
