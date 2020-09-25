@@ -23,4 +23,10 @@ void dynamic_array_free(int **A, int N)
     free(A[i]);
   }
   free(A);
+
+void swap(int a, int b)
+{
+    int c = a;
+    a = b;
+    b = c;
 }
