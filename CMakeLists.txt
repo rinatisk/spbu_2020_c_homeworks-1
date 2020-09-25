@@ -4,12 +4,16 @@ project(spbu_2020_c_homeworks-1 C)
 set(CMAKE_C_STANDARD 11)
 
 set(SOURCE_LIB
-    library/commonUtils/numericOperations.c
-)
+        library/commonUtils/numericOperations.c
+        )
 set(SOURCE_LIB
         library/commonUtils/arrayOperations.c
         )
 add_library(library ${SOURCE_LIB})
 
-add_executable(5sol Homeworks_1/5sol.c)
-target_link_libraries(5sol library)
+add_executable(2sol Homeworks_1/2sol.c)
+target_link_libraries(2sol library)
+
+add_executable(sol3 Homeworks_1/3sol.c)
+add_executable(sol5 Homeworks_1/5sol.c)
+target_link_libraries(sol5 library)
