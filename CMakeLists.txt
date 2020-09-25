@@ -12,9 +12,9 @@ set(SOURCE_LIB
 add_library(library ${SOURCE_LIB})
 
 add_executable(5sol Homeworks_1/5sol.c)
-target_link_libraries(5sol library)
+target_link_libraries(5sol library/commonUtils/arrayOperations.c)
 
 add_executable(2sol Homeworks_1/2sol.c)
-target_link_libraries(2sol library)
+target_link_libraries(2sol library/commonUtils/numericOperations.c)
 
 add_executable(sol3 Homeworks_1/3sol.c)
