@@ -4,14 +4,15 @@
 
 void decompositionRecursion(int* a, int remainTerms, int maxTerm, int numberTerm)
 {
-    if (remainTerms < 0) return;
+    if (remainTerms < 0) {
+        return;
+    }
     if (remainTerms == 0) {
         int j;
         for (j = 0; j < numberTerm - 1; j++) {
             printf("%d + ", a[j]);
         }
         printf("%d\n", a[numberTerm - 1]);
-
     }
     else {
         if (remainTerms - maxTerm >= 0) {
@@ -30,7 +31,7 @@ int main()
 {
     int originalNumber = 0;
     scanf("%d", &originalNumber);
-    int* a = (int*) calloc(originalNumber, sizeof(int));
+    int* a = (int*)calloc(originalNumber, sizeof(int));
     memset(a, 0, sizeof(int) * originalNumber);
     decompositionRecursion(a, originalNumber, originalNumber, 0);
     return 0;
