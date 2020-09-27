@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 void decompositionRecursion(int* a, int remainTerms, int maxTerm, int numberTerm)
 {
