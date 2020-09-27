@@ -12,3 +12,4 @@ add_executable(2sol Homeworks_1/2sol.c)
 target_link_libraries(2sol library)
 
 add_executable(sol3 Homeworks_1/3sol.c)
+add_executable(2_3sol Homeworks_2/2_3sol.c)
