@@ -6,13 +6,12 @@ int computeFactorial(int n)
         return 1;
     }
     return n * computeFactorial(n - 1);
-
 }
 
 int main()
 {
     printf("Write n:\n");
-    int n;
+    int n = 0;
     scanf("%d", &n);
     n = computeFactorial(n);
     printf("factorial n = %d", n, "\n");
