@@ -1,33 +1,45 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+const int numberOfDigits = 10;
+
+int countDigits(int digits[], int n)
 {
-    int n = 0;
-    int numbers[10];
-    memset(numbers, 0, 10 * sizeof(int));
-    printf("write n:\n");
-    scanf("%d", &n);
     int currentNumber = 0;
     while (n > 0) {
         currentNumber = n % 10;
-        numbers[currentNumber]++;
+        digits[currentNumber]++;
         n = n / 10;
     }
-    if (numbers[0] != 0) {
-        for (int i = 1; i < 10; ++i) {
-            if (numbers[i] != 0) {
-                numbers[i]--;
-                printf("%d", i);
-                break;
-            }
+    return *digits;
+}
+
+void printSmallestNumber(int digits[])
+{
+    if (digits[0] != 0) {
+        int i = 1;
+        while (digits[i] == 0) {
+            i++;
         }
+        digits[i]--;
+        printf("%d", i);
     }
-    for (int i = 0; i < 10; ++i) {
-        while (numbers[i] > 0) {
+    for (int i = 0; i < numberOfDigits; ++i) {
+        while (digits[i] > 0) {
             printf("%d", i);
-            numbers[i]--;
+            digits[i]--;
         }
     }
+}
+
+int main()
+{
+    int n = 0;
+    int digits[numberOfDigits];
+    memset(digits, 0, numberOfDigits * sizeof(int));
+    printf("write number:\n");
+    scanf("%d", &n);
+    *digits = countDigits(digits, n);
+    printSmallestNumber(digits);
     return 0;
 }
