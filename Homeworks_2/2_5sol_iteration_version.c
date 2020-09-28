@@ -3,7 +3,7 @@
 int computeFactorialByIteration(int n)
 {
     int currentFactorialValue = 1;
-    for (int i = 1; i < n + 1; ++i) {
+    for (int i = 1; i <= n; ++i) {
         currentFactorialValue *= i;
     }
     return currentFactorialValue;
