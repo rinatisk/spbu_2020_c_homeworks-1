@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void trailZero(int* a, int n)
+void trailZeros(int* a, int n)
 {
     int nonZeroIndex = 0;
     for (int j = 0; j < n; ++j) {
@@ -27,7 +27,7 @@ void scanArray(int* a, int n)
 {
     for (int i = 0; i < n; ++i) {
         scanf("%d", &a[i]);
-        }
+    }
 }
 
 int main()
@@ -37,10 +37,8 @@ int main()
     scanf("%d", &n);
     printf("Write numbers throw the space:\n");
     int* a = (int*)calloc(n, sizeof(int));
-    int zeroQuantity = 0;
     scanArray(a, n);
-    int nonZeroIndex = 0;
-    trailZero(a, n);
+    trailZeros(a, n);
     printArray(a, n);
     free(a);
     return 0;
