@@ -27,6 +27,7 @@ void decomposeNumber(int* a, int remainTerms, int maxTerm, int numberTerm)
 int main()
 {
     int originalNumber = 0;
+    printf("Write number you want to decompose into terms:\n");
     scanf("%d", &originalNumber);
     int* a = (int*)calloc(originalNumber, sizeof(int));
     memset(a, 0, sizeof(int) * originalNumber);
