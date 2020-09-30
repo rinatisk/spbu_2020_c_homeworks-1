@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 const int numberOfDigits = 10;
 
-int countDigits(int digits[], int n)
+int countDigits(int digits[], long long int n)
 {
     int currentNumber = 0;
     while (n > 0) {
@@ -34,12 +34,13 @@ void printSmallestNumber(int digits[])
 
 int main()
 {
-    int n = 0;
-    int digits[numberOfDigits];
+    long long int n = 0;
+    int* digits = calloc(numberOfDigits, numberOfDigits*sizeof(int ));
     memset(digits, 0, numberOfDigits * sizeof(int));
     printf("write number:\n");
-    scanf("%d", &n);
+    scanf("%lld", &n);
     *digits = countDigits(digits, n);
     printSmallestNumber(digits);
+    free(digits);
     return 0;
 }
