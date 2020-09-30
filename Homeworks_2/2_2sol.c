@@ -1,6 +1,6 @@
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 
 const int tryLength = 4;
 
@@ -30,8 +30,7 @@ void printGuessInfo(int numberOfBulls, int numberOfCows)
 {
     if (isUserWin(numberOfBulls)) {
         printf("You win\n");
-    }
-    else
+    } else
         printf("Cows: %d Bulls: %d\n", numberOfCows, numberOfBulls);
 }
 
