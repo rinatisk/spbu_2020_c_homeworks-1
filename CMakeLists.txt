@@ -11,7 +11,7 @@ add_library(library ${SOURCE_LIB})
 add_executable(sol1_1 Homeworks_1/1sol.c)
 target_link_libraries(sol1_1 library1)
 add_executable(sol1_2 Homeworks_1/2sol.c)
-target_link_libraries(sol2_1 library)
+target_link_libraries(sol1_2 library)
 add_executable(sol1_3 Homeworks_1/3sol.c)
 add_executable(sol1_4 Homeworks_1/4sol.c)
 
