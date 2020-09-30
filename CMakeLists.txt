@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 set(SOURCE_LIB
         library/commonUtils/numericOperations.c
+        library/commonUtils/arrayOperations.c
         )
 add_library(library ${SOURCE_LIB})
 
