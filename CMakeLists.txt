@@ -13,8 +13,13 @@ target_link_libraries(2sol library)
 
 add_executable(sol3 Homeworks_1/3sol.c)
 
+
 add_executable(sol2_5 Homeworks_2/2_5sol_recursion_version.c)
 add_executable(sol2_5_1 Homeworks_2/2_5sol_iteration_version.c)
+
+
+add_executable(sol2_4 Homeworks_2/2_4sol.c)
+
 
 add_executable(2_3sol Homeworks_2/2_3sol.c)
 
