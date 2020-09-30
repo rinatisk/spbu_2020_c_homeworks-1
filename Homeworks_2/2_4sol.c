@@ -36,7 +36,7 @@ void printSmallestNumber(int digits[])
 int main()
 {
     long long int n = 0;
-    int* digits =calloc(numberOfDigits, numberOfDigits * sizeof(int));
+    int* digits=calloc(numberOfDigits, numberOfDigits * sizeof(int));
     memset(digits, 0, numberOfDigits * sizeof(int));
     printf("write number:\n");
     scanf("%lld", &n);
