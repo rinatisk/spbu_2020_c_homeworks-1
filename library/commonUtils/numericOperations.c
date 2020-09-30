@@ -1,4 +1,5 @@
 #include "numericOperations.h"
+#include <malloc.h>
 
 int min(int a, int b)
 {
