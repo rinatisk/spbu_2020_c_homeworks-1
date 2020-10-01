@@ -73,4 +73,6 @@ int main()
         numberOfCows = countCows(computerGuess, userTry);
         printGuessInfo(numberOfBulls, numberOfCows);
     }
+    free(computerGuess);
+    free(userTry);
 }
