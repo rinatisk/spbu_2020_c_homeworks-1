@@ -49,8 +49,7 @@ void printGuessInfo(int numberOfBulls, int numberOfCows, int tryLength)
 {
     if (isUserWin(numberOfBulls, tryLength)) {
         printf("You win\n");
-    }
-    else
+    } else
         printf("Cows: %d Bulls: %d\n", numberOfCows, numberOfBulls);
 }
 
