@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 11)
 set(SOURCE_LIB
         library/commonUtils/numericOperations.c
         library/commonUtils/arrayOperations.c
+        library/commonUtils/list.c
         )
 
 add_library(library ${SOURCE_LIB})
@@ -26,3 +27,5 @@ add_executable(sol2_4 Homeworks_2/2_4sol.c)
 add_executable(sol2_5 Homeworks_2/2_5sol_recursion_version.c)
 add_executable(sol2_5_1 Homeworks_2/2_5sol_iteration_version.c)
 
+add_executable(sol3_1 Homeworks_3/3_1sol.c)
+target_link_libraries(sol3_1 library)
