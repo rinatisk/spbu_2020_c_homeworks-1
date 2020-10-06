@@ -15,8 +15,10 @@ int main()
     printList(numbers);
     insert(number4, 2, numbers);
     printList(numbers);
+    int position = locate(number4, numbers);
+    printf("%d\n", position);
+    delete(2, numbers);
+    printList(numbers);
     removeList(numbers);
     return 0;
 }
-
-

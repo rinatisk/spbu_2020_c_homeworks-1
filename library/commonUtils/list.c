@@ -113,15 +113,21 @@ bool insert(ListElement* value, int position, List* list)
 
 int locate(ListElement *value, List *list) {
     ListElement* elem = list->head;
+    int position = 1;
     while (elem != value) {
         elem = elem->next;
+        position++;
     }
-    return elem->value;
+    return position;
 }
 
 bool delete(int position, List *list) {
-    list->size--;
-    ListElement* elem = retrieve(position - 1, list);
-    free(elem->next);
-    elem->next = elem->next->next;
+    if (position < list->size) {
+        list->size--;
+        ListElement* previous = retrieve(position - 1, list);
+        ListElement* current = retrieve(position, list);
+        previous->next = previous->next->next;
+        free(current);
+        return false;
+    } else return true;
 }
