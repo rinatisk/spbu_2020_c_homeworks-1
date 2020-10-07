@@ -15,16 +15,16 @@ void printList(List* list);
 
 void addListElement(List* list, ListElement* elem);
 
-void removeList (List* list);
+void removeList(List* list);
 
 ListElement* retrieve(int position, List* list);
 
 bool removeByValue(List* list, int value);
 
-bool insert(ListElement *value, int position, List *list);
+bool insert(ListElement* value, int position, List* list);
 
-int locate(ListElement *value, List *list);
+int locate(ListElement* value, List* list);
 
-bool delete(int position, List *list);
+bool delete(int position, List* list);
 
 #endif //UNTITLED_LIST_H

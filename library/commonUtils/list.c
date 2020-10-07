@@ -111,7 +111,8 @@ bool insert(ListElement* value, int position, List* list)
     }
 }
 
-int locate(ListElement *value, List *list) {
+int locate(ListElement* value, List* list)
+{
     ListElement* elem = list->head;
     int position = 1;
     while (elem != value) {
@@ -121,7 +122,8 @@ int locate(ListElement *value, List *list) {
     return position;
 }
 
-bool delete(int position, List *list) {
+bool delete(int position, List* list)
+{
     if (position < list->size) {
         list->size--;
         ListElement* previous = retrieve(position - 1, list);
