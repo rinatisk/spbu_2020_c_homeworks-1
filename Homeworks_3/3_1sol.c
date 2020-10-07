@@ -17,7 +17,7 @@ int main()
     printList(numbers);
     int position = locate(number4, numbers);
     printf("%d\n", position);
-    delete(2, numbers);
+    delete (2, numbers);
     printList(numbers);
     removeList(numbers);
     return 0;

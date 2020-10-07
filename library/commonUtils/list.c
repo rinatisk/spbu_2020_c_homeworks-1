@@ -1,8 +1,8 @@
-#include "list.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
 
+#include "list.h"
 struct ListElement {
     int value;
     struct ListElement* next;
@@ -122,7 +122,7 @@ int locate(ListElement* value, List* list)
     return position;
 }
 
-bool delete(int position, List* list)
+bool delete (int position, List* list)
 {
     if (position < list->size) {
         list->size--;
@@ -131,5 +131,6 @@ bool delete(int position, List* list)
         previous->next = previous->next->next;
         free(current);
         return false;
-    } else return true;
+    } else
+        return true;
 }
