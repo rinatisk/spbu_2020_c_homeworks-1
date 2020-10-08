@@ -16,7 +16,7 @@ int main()
     while (sizeOfList(soldiers) > m - 1) {
         deleteEveryMSoldier(soldiers, m);
     }
-    delete(sizeOfList(soldiers), soldiers);
+    delete (sizeOfList(soldiers), soldiers);
     printf("The soldiers who stay alive:\n");
     printList(soldiers);
     return 0;
