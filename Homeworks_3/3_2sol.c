@@ -19,5 +19,6 @@ int main()
     delete (sizeOfList(soldiers), soldiers);
     printf("The soldiers who stay alive:\n");
     printList(soldiers);
+    removeList(soldiers);
     return 0;
 }
