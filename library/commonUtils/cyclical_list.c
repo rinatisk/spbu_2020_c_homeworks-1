@@ -140,11 +140,13 @@ bool delete (int position, List* list)
         return true;
 }
 
-int sizeOfList(List* list){
+int sizeOfList(List* list)
+{
     return list->size;
 }
 
-void deleteEveryMSoldier(List* list, int m){
+void deleteEveryMSoldier(List* list, int m)
+{
     int numberOfRemoved = 0;
     for (int i = 1; i <= sizeOfList(list); ++i) {
         if ((i + numberOfRemoved) % m == 0) {
