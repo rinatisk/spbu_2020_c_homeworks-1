@@ -33,7 +33,7 @@ int* getUserTry(int userTry[], int tryLength)
     printf("Write you numbers\n");
     int n = 0;
     scanf("%d", &n);
-    for (int i = 0; i < tryLength; ++i) {
+    for (int i = tryLength - 1; i >= 0; --i) {
         userTry[i] = n % 10;
         n = n / 10;
     }
@@ -60,7 +60,7 @@ int countCows(int computerGuess[], int userTry[], int tryLength)
         for (int j = 0; j < tryLength; ++j) {
             if ((userTry[i] == computerGuess[j]) && (i != j)) {
                 numberOfCows++;
-                break;
+                userTry[i] = -1;
             }
         }
     }
