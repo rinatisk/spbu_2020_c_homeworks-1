@@ -129,8 +129,8 @@ int locate(ListElement* value, List* list)
     }
     if (position == list->size) {
         return -1;
-    } else
-        return position;
+    }
+    return position;
 }
 
 bool delete (int position, List* list)
