@@ -109,15 +109,14 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position < list->size || position < 0) {
-        return false;
-    } else {
+    if (position < list->size && position > -1) {
         ListElement* current = retrieve(position, list);
         ListElement* previous = retrieve(position - 1, list);
         previous->next = value;
         value->next = current;
         return true;
-    }
+    } else
+        return false;
 }
 
 int locate(ListElement* value, List* list)
