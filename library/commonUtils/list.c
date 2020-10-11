@@ -97,26 +97,26 @@ void removeList(List* list)
 
 ListElement* retrieve(int position, List* list)
 {
-    if (position < list->size && position > -1) {
-        ListElement* elem = list->head;
-        for (int i = 0; i < position && elem != NULL; ++i) {
-            elem = elem->next;
-        }
-        return elem;
-    } else
+    if (position > list->size || position < 0) {
         return NULL;
+    }
+    ListElement* elem = list->head;
+    for (int i = 0; i < position && elem != NULL; ++i) {
+        elem = elem->next;
+    }
+    return elem;
 }
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position < list->size && position > -1) {
-        ListElement* current = retrieve(position, list);
-        ListElement* previous = retrieve(position - 1, list);
-        previous->next = value;
-        value->next = current;
-        return true;
-    } else
+    if (position > list->size || position < 0) {
         return false;
+    }
+    ListElement* current = retrieve(position, list);
+    ListElement* previous = retrieve(position - 1, list);
+    previous->next = value;
+    value->next = current;
+    return true;
 }
 
 int locate(ListElement* value, List* list)
