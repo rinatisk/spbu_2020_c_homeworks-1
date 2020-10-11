@@ -103,7 +103,8 @@ ListElement* retrieve(int position, List* list)
             elem = elem->next;
         }
         return elem;
-    } else return NULL;
+    } else
+        return NULL;
 }
 
 bool insert(ListElement* value, int position, List* list)
