@@ -22,7 +22,7 @@ int main()
     int position = locate(number4, numbers);
     printf("%d\n", position);
 
-    delete (position, numbers);
+    deleteElement(position, numbers);
     printList(numbers);
 
     removeList(numbers);

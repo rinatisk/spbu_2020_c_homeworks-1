@@ -25,7 +25,7 @@ bool insert(ListElement* value, int position, List* list);
 
 int locate(ListElement* value, List* list);
 
-bool delete(int position, List* list);
+bool deleteElement(int position, List* list);
 
 ListElement* tail(List *list);
 

@@ -133,7 +133,7 @@ int locate(ListElement* value, List* list)
     return position;
 }
 
-bool delete (int position, List* list)
+bool deleteElement(int position, List* list)
 {
     if (position > list->size || position < 0) {
         return false;
