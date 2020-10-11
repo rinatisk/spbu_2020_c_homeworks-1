@@ -86,11 +86,11 @@ bool removeByValue(List* list, int value)
 void removeList(List* list)
 {
     ListElement* current = list->head;
-    ListElement* temp = NULL;
+    ListElement* toDelete = NULL;
     while (current != NULL) {
-        temp = current;
+        toDelete = current;
         current = current->next;
-        freeListElement(temp);
+        freeListElement(toDelete);
     }
     free(list);
 }
@@ -109,7 +109,7 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size || position < 0) {
+    if (position < list->size || position < 0) {
         return false;
     } else {
         ListElement* current = retrieve(position, list);
@@ -124,16 +124,19 @@ int locate(ListElement* value, List* list)
 {
     ListElement* elem = list->head;
     int position = 0;
-    while (elem != value) {
+    while (elem != value && position != list->size) {
         elem = elem->next;
         position++;
     }
-    return position;
+    if (position == list->size) {
+        return -1;
+    } else
+        return position;
 }
 
 bool delete (int position, List* list)
 {
-    if (position < list->size) {
+    if (position < list->size && position > -1) {
         list->size--;
         ListElement* previous = retrieve(position - 1, list);
         ListElement* current = retrieve(position, list);
