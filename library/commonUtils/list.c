@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "list.h"
+
 struct ListElement {
     int value;
     struct ListElement* next;
@@ -30,7 +31,8 @@ ListElement* createListElement(int value)
     return elem;
 }
 
-void freeListElement (ListElement* listElement) {
+void freeListElement(ListElement* listElement)
+{
     free(listElement);
 }
 
@@ -109,7 +111,8 @@ bool insert(ListElement* value, int position, List* list)
 {
     if (position > list->size || position < 0) {
         return false;
-    } else {
+    }
+    else {
         ListElement* current = retrieve(position, list);
         ListElement* previous = retrieve(position - 1, list);
         previous->next = value;
@@ -129,7 +132,7 @@ int locate(ListElement* value, List* list)
     return position;
 }
 
-bool delete (int position, List* list)
+bool delete(int position, List* list)
 {
     if (position < list->size) {
         list->size--;
@@ -138,14 +141,17 @@ bool delete (int position, List* list)
         previous->next = current->next;
         freeListElement(current);
         return true;
-    } else
+    }
+    else
         return false;
 }
 
-ListElement* tail(List *list) {
+ListElement* tail(List* list)
+{
     return list->tail;
 }
 
-ListElement* head(List *list) {
+ListElement* head(List* list)
+{
     return list->head;
 }
