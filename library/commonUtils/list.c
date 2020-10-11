@@ -97,7 +97,7 @@ void removeList(List* list)
 
 ListElement* retrieve(int position, List* list)
 {
-    if (position > list->size || position < 0) {
+    if (position > list->size - 1 || position < 0) {
         return NULL;
     }
     ListElement* elem = list->head;
@@ -109,7 +109,7 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size || position < 0) {
+    if (position > list->size - 1 || position < 0) {
         return false;
     }
     ListElement* current = retrieve(position, list);
