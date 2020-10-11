@@ -30,13 +30,17 @@ ListElement* createListElement(int value)
     return elem;
 }
 
+void freeListElement (ListElement* listElement) {
+    free(listElement);
+}
+
 void printList(List* list)
 {
     printf("START -> ");
-    ListElement* temp = list->head;
-    while (temp != NULL) {
-        printf("%d -> ", temp->value);
-        temp = temp->next;
+    ListElement* toPrint = list->head;
+    while (toPrint != NULL) {
+        printf("%d -> ", toPrint->value);
+        toPrint = toPrint->next;
     }
     printf("END\n");
 }
@@ -61,14 +65,14 @@ bool removeByValue(List* list, int value)
     ListElement* current = list->head;
     if (list->head != NULL && list->head->value == value) {
         list->head = list->head->next;
-        free(current);
+        freeListElement(current);
         return true;
     }
     ListElement* previous = NULL;
     while (current != NULL) {
         if (current->value == value) {
             previous->next = current->next;
-            free(current);
+            freeListElement(current);
             return true;
         }
         previous = current;
@@ -84,37 +88,40 @@ void removeList(List* list)
     while (current != NULL) {
         temp = current;
         current = current->next;
-        free(temp);
+        freeListElement(temp);
     }
     free(list);
 }
 
 ListElement* retrieve(int position, List* list)
 {
-    ListElement* elem = list->head;
-    for (int i = 1; i < position && elem != NULL; ++i) {
-        elem = elem->next;
+    if (position < list->size && position > -1) {
+        ListElement* elem = list->head;
+        for (int i = 0; i < position && elem != NULL; ++i) {
+            elem = elem->next;
+        }
+        return elem;
     }
-    return elem;
+    else return NULL;
 }
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (list->size < position) {
-        return true;
+    if (position > list->size || position < 0) {
+        return false;
     } else {
         ListElement* current = retrieve(position, list);
         ListElement* previous = retrieve(position - 1, list);
         previous->next = value;
         value->next = current;
-        return false;
+        return true;
     }
 }
 
 int locate(ListElement* value, List* list)
 {
     ListElement* elem = list->head;
-    int position = 1;
+    int position = 0;
     while (elem != value) {
         elem = elem->next;
         position++;
@@ -128,9 +135,17 @@ bool delete (int position, List* list)
         list->size--;
         ListElement* previous = retrieve(position - 1, list);
         ListElement* current = retrieve(position, list);
-        previous->next = previous->next->next;
-        free(current);
-        return false;
-    } else
+        previous->next = current->next;
+        freeListElement(current);
         return true;
+    } else
+        return false;
+}
+
+ListElement* tail(List *list) {
+    return list->tail;
+}
+
+ListElement* head(List *list) {
+    return list->head;
 }

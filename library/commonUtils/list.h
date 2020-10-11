@@ -27,4 +27,7 @@ int locate(ListElement* value, List* list);
 
 bool delete(int position, List* list);
 
+ListElement* tail(List *list);
+
+ListElement* head(List *list);
 #endif //UNTITLED_LIST_H
