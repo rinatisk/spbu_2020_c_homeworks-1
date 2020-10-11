@@ -103,16 +103,14 @@ ListElement* retrieve(int position, List* list)
             elem = elem->next;
         }
         return elem;
-    }
-    else return NULL;
+    } else return NULL;
 }
 
 bool insert(ListElement* value, int position, List* list)
 {
     if (position > list->size || position < 0) {
         return false;
-    }
-    else {
+    } else {
         ListElement* current = retrieve(position, list);
         ListElement* previous = retrieve(position - 1, list);
         previous->next = value;
@@ -132,7 +130,7 @@ int locate(ListElement* value, List* list)
     return position;
 }
 
-bool delete(int position, List* list)
+bool delete (int position, List* list)
 {
     if (position < list->size) {
         list->size--;
@@ -141,8 +139,7 @@ bool delete(int position, List* list)
         previous->next = current->next;
         freeListElement(current);
         return true;
-    }
-    else
+    } else
         return false;
 }
 
