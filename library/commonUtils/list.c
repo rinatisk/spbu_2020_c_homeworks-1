@@ -135,15 +135,15 @@ int locate(ListElement* value, List* list)
 
 bool delete (int position, List* list)
 {
-    if (position < list->size && position > -1) {
-        list->size--;
-        ListElement* previous = retrieve(position - 1, list);
-        ListElement* current = retrieve(position, list);
-        previous->next = current->next;
-        freeListElement(current);
-        return true;
-    } else
+    if (position > list->size || position < 0) {
         return false;
+    }
+    list->size--;
+    ListElement* previous = retrieve(position - 1, list);
+    ListElement* current = retrieve(position, list);
+    previous->next = current->next;
+    freeListElement(current);
+    return true;
 }
 
 ListElement* tail(List* list)
