@@ -21,5 +21,6 @@ int main()
     }
     int lastSoldier = getLastSoldier(soldiers);
     printf("Last soldier is:\n%d", lastSoldier);
+    removeList(soldiers);
     return 0;
 }
