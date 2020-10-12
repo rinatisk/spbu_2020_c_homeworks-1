@@ -5,20 +5,21 @@
 int main()
 {
     List* soldiers = createList();
-    int n = 0;
+    int numberOfSoldiers = 0;
     int m = 0;
+    ListElement* listElement = NULL;
     printf("Write number of all soldiers and number m:\n");
-    scanf("%d%d", &n, &m);
-    for (int i = 1; i <= n; ++i) {
-        ListElement* newSoldier = createListElement(i);
-        addListElement(soldiers, newSoldier);
+    scanf("%d%d", &numberOfSoldiers, &m);
+    for (int i = 0; i < numberOfSoldiers; ++i) {
+        listElement = createListElement(i);
+        addListElement(soldiers, listElement);
     }
-    while (sizeOfList(soldiers) > m - 1) {
-        deleteEveryMSoldier(soldiers, m);
+    int position = m - 1;
+    while (getSizeList(soldiers) > m - 1) {
+        deleteElement(position, soldiers);
+        position = getNextPosition(soldiers, position, m);
     }
-    delete (sizeOfList(soldiers), soldiers);
-    printf("The soldiers who stay alive:\n");
-    printList(soldiers);
-    removeList(soldiers);
+    int lastSoldier = getLastSoldier(soldiers);
+    printf("Last soldier is:\n%d", lastSoldier);
     return 0;
 }

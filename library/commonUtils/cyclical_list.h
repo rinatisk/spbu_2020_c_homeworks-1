@@ -1,33 +1,9 @@
-#ifndef UNTITLED_LIST_H
-#define UNTITLED_LIST_H
+#ifndef SPBU_2020_C_HOMEWORKS_1_CYCLICAL_LIST_H
+#define SPBU_2020_C_HOMEWORKS_1_CYCLICAL_LIST_H
 
-#include <stdbool.h>
+#include "list.h"
 
-typedef struct ListElement ListElement;
+int getNextPosition(List* list, int position, int m);
 
-typedef struct List List;
-
-List* createList();
-
-ListElement* createListElement(int value);
-
-void printList(List* list);
-
-void addListElement(List* list, ListElement* elem);
-
-void removeList(List* list);
-
-ListElement* retrieve(int position, List* list);
-
-bool removeByValue(List* list, int value);
-
-bool insert(ListElement* value, int position, List* list);
-
-int locate(ListElement* value, List* list);
-
-bool delete(int position, List* list);
-int sizeOfList (List* list);
-
-void deleteEveryMSoldier (List* list, int m);
-
-#endif //UNTITLED_LIST_H
+int getLastSoldier (List* list);
+#endif //SPBU_2020_C_HOMEWORKS_1_CYCLICAL_LIST_H
