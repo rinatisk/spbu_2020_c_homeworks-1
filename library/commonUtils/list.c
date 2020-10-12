@@ -110,7 +110,7 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size || position < -1) {
+    if (position > list->size || position < 0) {
         return false;
     }
     if (position == list->size) {
