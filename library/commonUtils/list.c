@@ -20,6 +20,7 @@ List* createList()
     List* list = malloc(sizeof(List));
     list->head = NULL;
     list->tail = NULL;
+    list->size = 0;
     return list;
 }
 
@@ -109,8 +110,21 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size - 1 || position < 0) {
+    if (position > list->size || position < -1) {
         return false;
+    }
+    if (position == list->size) {
+        ListElement* current = list->tail;
+        current->next = value;
+        list->tail = value;
+        list->tail->next = NULL;
+        return true;
+    }
+    if (position == 0) {
+        ListElement* current = list->head;
+        list->head = value;
+        list->head->next = current;
+        return true;
     }
     ListElement* current = retrieve(position, list);
     ListElement* previous = retrieve(position - 1, list);
@@ -135,8 +149,23 @@ int locate(ListElement* value, List* list)
 
 bool deleteElement(int position, List* list)
 {
-    if (position > list->size || position < 0) {
+    if (position > list->size - 1 || position < 0) {
         return false;
+    }
+    if (position == 0) {
+        list->size--;
+        ListElement* current = list->head;
+        list->head = current->next;
+        free(current);
+        return true;
+    }
+    if (position == list->size - 1) {
+        list->size--;
+        ListElement* current = list->tail;
+        list->tail = retrieve(list->size - 2, list);
+        list->tail->next = NULL;
+        free(current);
+        return true;
     }
     list->size--;
     ListElement* previous = retrieve(position - 1, list);
@@ -154,4 +183,14 @@ ListElement* tail(List* list)
 ListElement* head(List* list)
 {
     return list->head;
+}
+
+int getSizeList(List* list)
+{
+    return list->size;
+}
+
+int getValue(ListElement* listElement)
+{
+    return listElement->value;
 }

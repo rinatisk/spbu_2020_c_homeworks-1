@@ -30,4 +30,8 @@ bool deleteElement(int position, List* list);
 ListElement* tail(List *list);
 
 ListElement* head(List *list);
+
+int getSizeList(List* list);
+
+int getValue(ListElement* listElement);
 #endif //UNTITLED_LIST_H
