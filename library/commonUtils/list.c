@@ -172,7 +172,8 @@ ListElement* head(List* list)
     return list->head;
 }
 
-int getSizeList(List* list) {
+int getSizeList(List* list)
+{
     return list->size;
 }
 
