@@ -110,8 +110,21 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size - 1 || position < 0) {
+    if (position > list->size || position < -1) {
         return false;
+    }
+    if (position == list->size) {
+        ListElement* current = list->tail;
+        current->next = value;
+        list->tail = value;
+        list->tail->next = NULL;
+        return true;
+    }
+    if (position == 0) {
+        ListElement* current = list->head;
+        list->head = value;
+        list->head->next = current;
+        return true;
     }
     ListElement* current = retrieve(position, list);
     ListElement* previous = retrieve(position - 1, list);
