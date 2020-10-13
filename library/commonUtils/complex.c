@@ -1,11 +1,11 @@
 #include "complex.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct ComplexNumber {
     double first;
     double second;
 };
-
 
 ComplexNumber* createComplexNumber(double first, double second)
 {
@@ -41,14 +41,16 @@ ComplexNumber* composition(ComplexNumber* firstNumber, ComplexNumber* secondNumb
 
 ComplexNumber* division(ComplexNumber* firstNumber, ComplexNumber* secondNumber)
 {
-    double numerator = ((secondNumber->first) * (secondNumber->first) +
-                        (secondNumber->second) * (secondNumber->second));
-    double first =
-            ((firstNumber->first) * (secondNumber->first) + (secondNumber->second) * (firstNumber->second)) / numerator;
-    double second =
-            (firstNumber->first) * (secondNumber->first) - (secondNumber->second) * (firstNumber->second) / numerator;
+    double numerator = ((secondNumber->first) * (secondNumber->first) + (secondNumber->second) * (secondNumber->second));
+    double first = ((firstNumber->first) * (secondNumber->first) + (secondNumber->second) * (firstNumber->second)) / numerator;
+    double second = (firstNumber->first) * (secondNumber->first) - (secondNumber->second) * (firstNumber->second) / numerator;
     ComplexNumber* sumNumber = createComplexNumber(first, second);
     return sumNumber;
+}
+
+double printComplexNumber (ComplexNumber* complexNumber)
+{
+    printf("%if %if", complexNumber->first, complexNumber->second);
 }
 
 void removeComplexNumber(ComplexNumber* complexNumber)
