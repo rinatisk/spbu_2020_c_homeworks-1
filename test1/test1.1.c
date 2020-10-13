@@ -24,8 +24,6 @@ void mergeArrays(int firstArray[], int secondArray[], int sizeFirstArray, int si
         k++;
         i++;
     }
-
-
     while (j < sizeSecondArray) {
         mergedArray[k] = secondArray[j];
         k++;
@@ -33,14 +31,13 @@ void mergeArrays(int firstArray[], int secondArray[], int sizeFirstArray, int si
     }
 }
 
-
 int main()
 {
     printf("write size of first array and elements of first array:\n");
     int sizeFirstArray = 0;
     scanf("%d", &sizeFirstArray);
     int* firstArray = calloc(sizeFirstArray, sizeof(int));
-    for (int i = 0; i < sizeFirstArray; ++i) {
+    for (int i = sizeFirstArray - 1; i >= 0; --i) {
         scanf("%d", &firstArray[i]);
     }
 
@@ -48,10 +45,9 @@ int main()
     int sizeSecondArray = 0;
     scanf("%d", &sizeSecondArray);
     int* secondArray = calloc(sizeSecondArray, sizeof(int));
-    for (int i = 0; i < sizeSecondArray; ++i) {
+    for (int i = sizeSecondArray - 1; i >= 0; --i) {
         scanf("%d", &secondArray[i]);
     }
-
     int* mergedArray = calloc(sizeFirstArray + sizeSecondArray, sizeof(int));
 
     mergeArrays(firstArray, secondArray, sizeFirstArray, sizeSecondArray, mergedArray);
@@ -61,4 +57,4 @@ int main()
         printf("%d ", mergedArray[i]);
 
     return 0;
-} 
+}
