@@ -1,7 +1,7 @@
-#include "complex.h"
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "complex.h"
 struct ComplexNumber {
     double first;
     double second;
@@ -48,7 +48,7 @@ ComplexNumber* division(ComplexNumber* firstNumber, ComplexNumber* secondNumber)
     return sumNumber;
 }
 
-double printComplexNumber (ComplexNumber* complexNumber)
+double printComplexNumber(ComplexNumber* complexNumber)
 {
     printf("%if %if", complexNumber->first, complexNumber->second);
 }
