@@ -29,4 +29,4 @@ add_executable(sol2_4 Homeworks_2/2_4sol.c)
 add_executable(sol2_5 Homeworks_2/2_5sol_recursion_version.c)
 add_executable(sol2_5_1 Homeworks_2/2_5sol_iteration_version.c)
 
-
+add_executable(sol4_2 Homeworks_4/4_2sol.c)
