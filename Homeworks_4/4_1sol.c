@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include "../library/commonUtils/stack.h"
@@ -10,7 +11,7 @@ int getNewPositiveNumber(char* string, int* position)
     int value = 0;
     while (isdigit(string[(*position)])) {
         value *= 10;
-        value += (string[*position] - 48);
+        value += (string[*position] - '0');
         (*position) += 1;
     }
     return value;
@@ -77,12 +78,17 @@ int calculateFullExpression(char string[], int* error)
 int main()
 {
     int error = 0;
-    char string[MAX_SIZE];
+    char* string = malloc(MAX_SIZE * sizeof(char));
     printf("write expression:\n");
-    fgets(string, MAX_SIZE, stdin);
+    int i = -1;
+    while (string[i] != '\n') {
+        ++i;
+        scanf("%c", &string[i]);
+    }
     int totalResult = calculateFullExpression(string, &error);
     if (error == 0) {
         printf("%d", totalResult);
     } else printf("error code is %d", error);
+    free(string);
     return 0;
 }
