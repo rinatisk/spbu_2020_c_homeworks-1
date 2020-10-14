@@ -15,6 +15,7 @@ Stack* createStack()
 {
     Stack* stack = malloc(sizeof(Stack));
     stack->top = NULL;
+    stack->size = 0;
     return stack;
 }
 
