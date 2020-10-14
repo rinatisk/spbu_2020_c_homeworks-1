@@ -1,6 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <math.h>
 
 int computeExponentSmallNumber(double* number, int exponent, int systemNumber)
