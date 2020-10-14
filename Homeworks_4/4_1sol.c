@@ -1,6 +1,6 @@
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../library/commonUtils/stack.h"
 
@@ -45,12 +45,11 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
     case '/':
         if (secondOperand == 0) {
             *error = -1;
-        } else
-        return firstOperand / secondOperand;
+        } else return firstOperand / secondOperand;
     }
 };
 
-bool isOperator (char* string, int position)
+bool isOperator(char* string, int position)
 {
     return (string[position] >= '*' && string[position] <= '/' && !isdigit(string[position + 1]));
 }
@@ -88,7 +87,8 @@ int main()
     int totalResult = calculateFullExpression(string, &error);
     if (error == 0) {
         printf("%d", totalResult);
-    } else printf("error code is %d", error);
+    } else
+        printf("error code is %d", error);
     free(string);
     return 0;
 }
