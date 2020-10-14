@@ -1,13 +1,11 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #include "../library/commonUtils/stack.h"
 
 const int MAX_SIZE = 100;
 
-
-int getNewNumber (char* string, int position)
+int getNewNumber(char* string, int position)
 {
     int value = 0;
     while (isdigit(string[position])) {
@@ -34,8 +32,7 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation)
     }
 };
 
-
-int calculateFullExpression (char string[])
+int calculateFullExpression(char string[])
 {
     Stack* computation = createStack();
     StackElement* newNumber = createStackElement(0);
