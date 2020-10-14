@@ -45,7 +45,8 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
     case '/':
         if (secondOperand == 0) {
             *error = -1;
-        } else return firstOperand / secondOperand;
+        } else
+            return firstOperand / secondOperand;
     }
 };
 
