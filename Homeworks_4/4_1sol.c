@@ -13,12 +13,11 @@ char* readString(char* string)
         scanf("%c", &string[i]);
         if (i == currentSizeMemory) {
             currentSizeMemory *= 2;
-            string = (char*) realloc(string, currentSizeMemory);
+            string = (char*)realloc(string, currentSizeMemory);
         }
     }
     return string;
 }
-
 
 int getNewPositiveNumber(char* string, int* position)
 {
@@ -59,8 +58,7 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
     case '/':
         if (secondOperand == 0) {
             *error = -1;
-        }
-        else
+        } else
             return firstOperand / secondOperand;
     }
 };
@@ -93,7 +91,7 @@ int calculateFullExpression(char string[], int* error)
 int main()
 {
     int error = 0;
-    char* string = (char*) malloc(sizeof(char));
+    char* string = (char*)malloc(sizeof(char));
     int currentSizeMemory = 1;
     printf("write expression:\n");
     string = readString(string);
