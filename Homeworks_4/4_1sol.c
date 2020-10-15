@@ -4,7 +4,21 @@
 
 #include "../library/commonUtils/stack.h"
 
-const int MAX_SIZE = 100;
+char* readString(char* string)
+{
+    int i = -1;
+    int currentSizeMemory = 1;
+    while (string[i] != '\n') {
+        ++i;
+        scanf("%c", &string[i]);
+        if (i == currentSizeMemory) {
+            currentSizeMemory *= 2;
+            string = (char*) realloc(string, currentSizeMemory);
+        }
+    }
+    return string;
+}
+
 
 int getNewPositiveNumber(char* string, int* position)
 {
@@ -45,7 +59,8 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
     case '/':
         if (secondOperand == 0) {
             *error = -1;
-        } else
+        }
+        else
             return firstOperand / secondOperand;
     }
 };
@@ -78,13 +93,10 @@ int calculateFullExpression(char string[], int* error)
 int main()
 {
     int error = 0;
-    char* string = malloc(MAX_SIZE * sizeof(char));
+    char* string = (char*) malloc(sizeof(char));
+    int currentSizeMemory = 1;
     printf("write expression:\n");
-    int i = -1;
-    while (string[i] != '\n') {
-        ++i;
-        scanf("%c", &string[i]);
-    }
+    string = readString(string);
     int totalResult = calculateFullExpression(string, &error);
     if (error == 0) {
         printf("%d", totalResult);
