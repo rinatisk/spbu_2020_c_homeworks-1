@@ -6,15 +6,16 @@
 
 char* readString(char* string)
 {
-    int i = -1;
+    int i = 0;
+    scanf("%c", &string[i]);
     int currentSizeMemory = 1;
     while (string[i] != '\n') {
         ++i;
-        scanf("%c", &string[i]);
         if (i == currentSizeMemory) {
-            currentSizeMemory += 2;
+            currentSizeMemory *= 2;
             string = (char*)realloc(string, currentSizeMemory);
         }
+        scanf("%c", &string[i]);
     }
     return string;
 }
