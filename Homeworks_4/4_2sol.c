@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+const int SHIFT = 1023;
+
 int getDecimalNumber(int start, int end, char* number)
 {
     int currentPlus = 1;
@@ -91,7 +93,7 @@ int main()
     }
 
     sign = getSign(binaryNumber, sign);
-    int exponent = getDecimalNumber(1, 11, binaryNumber) - 1023;
+    int exponent = getDecimalNumber(1, 11, binaryNumber) - SHIFT;
     double mantissa = getSmallDecimalNumber(12, 63, binaryNumber) + 1;
     char signOfMantissa = getSignOfMantissa(sign);
     printf("%c%lg * %d ^ {%d}", signOfMantissa, mantissa, 2, exponent);
