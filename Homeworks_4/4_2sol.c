@@ -2,35 +2,67 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-int computeExponentSmallNumber(double* number, int exponent, int systemNumber)
+int getDecimalNumber(int start, int end, char* number)
 {
-    while (fabs(*number) < 1) {
-        *number *= systemNumber;
-        exponent--;
+    int currentPlus = 1;
+    int decimalNumber = 0;
+    for (int i = end; i > start - 1; i--) {
+        if (number[i] == '1')
+            decimalNumber += currentPlus;
+        currentPlus *= 2;
     }
-    return exponent;
+    return decimalNumber;
 }
 
-int computeExponentBigNumber(double* number, int exponent, int systemNumber)
+double getSmallDecimalNumber(int start, int end, char* number)
 {
-    while (fabs(*number) > systemNumber) {
-        *number /= systemNumber;
-        exponent++;
+    double currentPlus = 0.5;
+    double decimalNumber = 0;
+    for (int i = start; i <= end; i++) {
+        if (number[i] == '1')
+            decimalNumber += currentPlus;
+        currentPlus /= 2;
     }
-    return exponent;
+    return decimalNumber;
 }
 
-bool isNumberBig(double number, int system)
-{
-    return fabs(number) > system;
+char* getBinaryNumber(char* binaryNumber, unsigned char* bytes) {
+    int bit = 0b10000000;
+    for (int i = 0; i < 8; ++i) {
+        bit = 0b10000000;
+        for (int j = 0; j < 8; ++j) {
+            binaryNumber[j + i * 8] = ((bytes[i] & bit) ? '1' : '0');
+            bit = bit >> 1;
+        }
+    }
+    return binaryNumber;
 }
 
-void printExponentFormat(double number, int exponent, int systemNumber)
+int getSign(char* binaryNumber, int sign)
 {
-    if (number > 0) {
-        printf("+%lg * %d ^ {%d}", number, systemNumber, exponent);
-    } else
-        printf("%lg * %d ^ {%d}", number, systemNumber, exponent);
+    if (binaryNumber[0] == '1') {
+        sign = -1;
+    }
+    return sign;
+}
+char getSignOfMantissa(int sign)
+{
+    char signOfMantissa = '+';
+    if (sign == -1) {
+        signOfMantissa = '-';
+    }
+    return signOfMantissa;
+}
+
+unsigned char* reverseBytes(unsigned char* bytes)
+{
+    unsigned char toSwap = 0;
+    for (int i = 0; i < 4; ++i) {
+        toSwap = bytes[i];
+        bytes[i] = bytes[7 - i];
+        bytes[7 - i] = toSwap;
+    }
+    return bytes;
 }
 
 int main()
@@ -38,18 +70,30 @@ int main()
     double number = 0;
     printf("Enter a number:\n");
     scanf("%lg", &number);
+    if (number == 0) {
+        printf("%d * %d ^ {%d}", 0, 2, 0);
+        return 0;
+    }
 
-    int exponent = 0;
-    int systemNumber = 0;
-    printf("write number of numeral system:\n");
-    scanf("%d", &systemNumber);
+    unsigned char* bytes = (unsigned char*) &number;
+    int sign = 1;
+    bytes = reverseBytes(bytes);
 
-    if (isNumberBig(number, systemNumber)) {
-        exponent = computeExponentBigNumber(&number, exponent, systemNumber);
-    } else
-        exponent = computeExponentSmallNumber(&number, exponent, systemNumber);
+    char binaryNumber[64];
+    int bit = 0b10000000;
+    for (int i = 0; i < 8; ++i) {
+        bit = 0b10000000;
+        for (int j = 0; j < 8; ++j) {
+            binaryNumber[j + i * 8] = ((bytes[i] & bit) ? '1' : '0');
+            bit = bit >> 1;
+        }
+    }
 
-    printExponentFormat(number, exponent, systemNumber);
+    sign = getSign(binaryNumber, sign);
+    int exponent = getDecimalNumber(1, 11, binaryNumber) - 1023;
+    double mantissa = getSmallDecimalNumber(12, 63, binaryNumber) + 1;
+    char signOfMantissa = getSignOfMantissa(sign);
+    printf("%c%lg * %d ^ {%d}", signOfMantissa, mantissa, 2, exponent);
 
     return 0;
 }
