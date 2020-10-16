@@ -12,7 +12,7 @@ char* readString(char* string)
         ++i;
         scanf("%c", &string[i]);
         if (i == currentSizeMemory) {
-            currentSizeMemory *= 2;
+            currentSizeMemory += 2;
             string = (char*)realloc(string, currentSizeMemory);
         }
     }
@@ -92,7 +92,6 @@ int main()
 {
     int error = 0;
     char* string = (char*)malloc(sizeof(char));
-    int currentSizeMemory = 1;
     printf("write expression:\n");
     string = readString(string);
     int totalResult = calculateFullExpression(string, &error);
