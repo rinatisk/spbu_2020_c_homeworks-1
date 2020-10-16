@@ -26,7 +26,7 @@ double getSmallDecimalNumber(int start, int end, char* number)
     return decimalNumber;
 }
 
-char* getBinaryNumber(char* binaryNumber, unsigned char* bytes) {
+char* getBinaryNumber(char* binaryNumber, unsigned char* bytes){
     int bit = 0b10000000;
     for (int i = 0; i < 8; ++i) {
         bit = 0b10000000;
@@ -75,7 +75,7 @@ int main()
         return 0;
     }
 
-    unsigned char* bytes = (unsigned char*) &number;
+    unsigned char* bytes = (unsigned char*)&number;
     int sign = 1;
     bytes = reverseBytes(bytes);
 
