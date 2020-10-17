@@ -7,7 +7,7 @@ const int SIZE_OF_BINARY_NUMBER = sizeof(int) * 8;
 void getBinaryNumber(int number, bool* binaryNumber)
 {
     for (int i = 0; i < sizeof(int) * 8; ++i) {
-        binaryNumber[i] = (number & 1) == 1;
+        binaryNumber[i] = (number & 1);
         number >>= 1;
     }
 }
