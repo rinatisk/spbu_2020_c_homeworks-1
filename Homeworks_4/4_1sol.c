@@ -59,8 +59,12 @@ int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
     case '/':
         if (secondOperand == 0) {
             *error = -1;
+            return 0;
         } else
             return firstOperand / secondOperand;
+    default:
+        *error = -2;
+        return 0;
     }
 };
 
@@ -69,12 +73,21 @@ bool isOperator(char* string, int position)
     return (string[position] >= '*' && string[position] <= '/' && !isdigit(string[position + 1]));
 }
 
+bool isUnknownOperation(char* string, int position)
+{
+    return !(isOperator(string, position) || isdigit(string[position]) || (string[position] == ' '));
+}
+
 int calculateFullExpression(char string[], int* error)
 {
     Stack* computation = createStack();
     StackElement* newNumber = createStackElement(0);
     int position = 0;
     while (string[position] != '\n') {
+        if (isUnknownOperation(string, position)) {
+            *error = -2;
+            return 0;
+        }
         if (isdigit(string[position])) {
             newNumber = createStackElement(getNewNumber(string, &position));
             push(computation, newNumber);
