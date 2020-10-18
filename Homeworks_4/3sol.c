@@ -12,7 +12,7 @@ void getBinaryNumber(int number, bool* binaryNumber)
     }
 }
 
-void getTotalByBinary(bool* binaryFirstNumber, bool* binarySecondNumber, bool* binarySum)
+void getBinarySum(bool* binaryFirstNumber, bool* binarySecondNumber, bool* binarySum)
 {
     bool transferValue = 0;
     for (int i = 0; i < SIZE_OF_BINARY_NUMBER; ++i) {
@@ -26,12 +26,12 @@ void getTotalByBinary(bool* binaryFirstNumber, bool* binarySecondNumber, bool* b
 int getDecimalNumber(bool* binaryNumber)
 {
     int currentValue = 0;
-    int nextPlus = 1;
+    int nextTerm = 1;
     for (int i = 0; i < SIZE_OF_BINARY_NUMBER; ++i) {
         if (binaryNumber[i]) {
-            currentValue += nextPlus;
+            currentValue += nextTerm;
         }
-        nextPlus *= 2;
+        nextTerm *= 2;
     }
     return currentValue;
 }
@@ -62,15 +62,20 @@ int main()
 
     bool binarySum[SIZE_OF_BINARY_NUMBER];
     memset(binarySum, false, SIZE_OF_BINARY_NUMBER);
-    getTotalByBinary(binaryFirstNumber, binarySecondNumber, binarySum);
+    getBinarySum(binaryFirstNumber, binarySecondNumber, binarySum);
 
+    printf("First binary number:\n");
     printBinaryNumber(binaryFirstNumber);
+
+    printf("Second binary number:\n");
     printBinaryNumber(binarySecondNumber);
 
+    printf("Binary sum:\n");
     printBinaryNumber(binarySum);
 
     int decimalSum = getDecimalNumber(binarySum);
 
+    printf("Decimal sum:\n");
     printf("%d\n", decimalSum);
 
     return 0;
