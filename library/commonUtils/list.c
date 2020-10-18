@@ -40,7 +40,7 @@ void freeListElement(ListElement* listElement)
 void printList(List* list)
 {
     printf("START -> ");
-    ListElement* toPrint = list->head;
+    ListElement* toPrint = head(list);
     while (toPrint != NULL) {
         printf("%d -> ", toPrint->value);
         toPrint = toPrint->next;
@@ -110,7 +110,7 @@ ListElement* retrieve(int position, List* list)
 
 bool insert(ListElement* value, int position, List* list)
 {
-    if (position > list->size || position < -1) {
+    if (position > list->size || position < 0) {
         return false;
     }
     if (position == list->size) {

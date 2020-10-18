@@ -34,3 +34,5 @@ add_executable(sol2_5_1 Homeworks_2/2_5sol_iteration_version.c)
 add_executable(sol3_2 Homeworks_3/3_2sol.c)
 target_link_libraries(sol3_2 library)
 
+add_executable(sol3_1 Homeworks_3/3_1sol.c)
+target_link_libraries(sol3_1 library)
