@@ -15,15 +15,15 @@ int main()
     scanf("%d%d", &numberOfSoldiers, &m);
 
     for (int i = 0; i < numberOfSoldiers; ++i) {
-        listElement = createListElement(i);
+        listElement = createListElement(i + 1);
         addListElement(soldiers, listElement);
     }
 
     int position = m - 1;
 
-    while (getSizeList(soldiers) > m - 1) {
+    while (getSizeList(soldiers) > 1) {
         deleteElement(position, soldiers);
-        position = getNextPosition(soldiers, position, m);
+        position = getNextPosition(soldiers, position, m - 1);
     }
 
     int lastSoldier = getLastSoldier(soldiers);

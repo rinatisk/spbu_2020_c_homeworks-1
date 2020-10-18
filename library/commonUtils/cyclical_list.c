@@ -18,6 +18,6 @@ int getNextPosition(List* list, int position, int m)
 
 int getLastSoldier(List* list)
 {
-    ListElement* listElement = tail(list);
+    ListElement* listElement = head(list);
     return getValue(listElement);
 }
