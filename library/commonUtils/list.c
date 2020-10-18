@@ -40,7 +40,7 @@ void freeListElement(ListElement* listElement)
 void printList(List* list)
 {
     printf("START -> ");
-    ListElement* toPrint = list->head;
+    ListElement* toPrint = head(list);
     while (toPrint != NULL) {
         printf("%d -> ", toPrint->value);
         toPrint = toPrint->next;
@@ -56,8 +56,8 @@ void addListElement(List* list, ListElement* elem)
         list->tail = elem;
         return;
     }
-    ListElement* temp = list->tail;
-    temp->next = elem;
+    ListElement* currentTail = list->tail;
+    currentTail->next = elem;
     list->tail = elem;
     list->tail->next = NULL;
 }
@@ -159,19 +159,11 @@ bool deleteElement(int position, List* list)
         free(current);
         return true;
     }
-    if (position == list->size - 1) {
-        list->size--;
-        ListElement* current = list->tail;
-        list->tail = retrieve(list->size - 2, list);
-        list->tail->next = NULL;
-        free(current);
-        return true;
-    }
     list->size--;
     ListElement* previous = retrieve(position - 1, list);
-    ListElement* current = retrieve(position, list);
-    previous->next = current->next;
-    freeListElement(current);
+    ListElement* toDelete = previous->next;
+    previous->next = toDelete->next;
+    free(toDelete);
     return true;
 }
 
