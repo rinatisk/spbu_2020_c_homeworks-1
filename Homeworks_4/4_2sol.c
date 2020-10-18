@@ -4,28 +4,28 @@
 
 const int SHIFT = 1023;
 
-int getDecimalNumber(int start, int end, char* number)
+int getExponent(int start, int end, char* number)
 {
-    int currentPlus = 1;
+    int currentTerm = 1;
     int decimalNumber = 0;
     for (int i = end; i > start - 1; i--) {
         if (number[i] == '1')
-            decimalNumber += currentPlus;
-        currentPlus *= 2;
+            decimalNumber += currentTerm;
+        currentTerm *= 2;
     }
-    return decimalNumber;
+    return decimalNumber - SHIFT;
 }
 
-double getSmallDecimalNumber(int start, int end, char* number)
+double getMantissa(int start, int end, char* number)
 {
-    double currentPlus = 0.5;
+    double currentTerm = 0.5;
     double decimalNumber = 0;
     for (int i = start; i <= end; i++) {
         if (number[i] == '1')
-            decimalNumber += currentPlus;
-        currentPlus /= 2;
+            decimalNumber += currentTerm;
+        currentTerm /= 2;
     }
-    return decimalNumber;
+    return decimalNumber + 1;
 }
 
 char* getBinaryNumber(char* binaryNumber, unsigned char* bytes)
@@ -41,20 +41,13 @@ char* getBinaryNumber(char* binaryNumber, unsigned char* bytes)
     return binaryNumber;
 }
 
-int getSign(char* binaryNumber, int sign)
+int getSign(char* binaryNumber)
 {
-    if (binaryNumber[0] == '1') {
-        sign = -1;
-    }
-    return sign;
+    return binaryNumber[0] == '1' ? -1 : 1;
 }
 char getSignOfMantissa(int sign)
 {
-    char signOfMantissa = '+';
-    if (sign == -1) {
-        signOfMantissa = '-';
-    }
-    return signOfMantissa;
+    return sign == -1 ? '-' : '+';
 }
 
 unsigned char* reverseBytes(unsigned char* bytes)
@@ -79,7 +72,7 @@ int main()
     }
 
     unsigned char* bytes = (unsigned char*)&number;
-    int sign = 1;
+    int sign = 0;
     bytes = reverseBytes(bytes);
 
     char binaryNumber[64];
@@ -92,9 +85,9 @@ int main()
         }
     }
 
-    sign = getSign(binaryNumber, sign);
-    int exponent = getDecimalNumber(1, 11, binaryNumber) - SHIFT;
-    double mantissa = getSmallDecimalNumber(12, 63, binaryNumber) + 1;
+    sign = getSign(binaryNumber);
+    int exponent = getExponent(1, 11, binaryNumber);
+    double mantissa = getMantissa(12, 63, binaryNumber);
     char signOfMantissa = getSignOfMantissa(sign);
     printf("%c%lg * %d ^ {%d}", signOfMantissa, mantissa, 2, exponent);
 
