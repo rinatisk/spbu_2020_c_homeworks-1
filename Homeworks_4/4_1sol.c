@@ -47,8 +47,14 @@ int getNewNumber(char* string, int* position)
 
 int calculateNumbersBeforeOperation(Stack* numbers, char operation, int* error)
 {
-    int secondOperand = getValue(pop(numbers));
-    int firstOperand = getValue(pop(numbers));
+    StackElement* firstTop = pop(numbers);
+    int secondOperand = getValue(firstTop);
+    deleteStackElement(firstTop);
+
+    StackElement* secondTop = pop(numbers);
+    int firstOperand = getValue(secondTop);
+    deleteStackElement(secondTop);
+
     switch (operation) {
     case '+':
         return firstOperand + secondOperand;
@@ -99,6 +105,8 @@ int calculateFullExpression(char string[], int* error)
         position++;
     }
     int totalResult = getValue(pop(computation));
+    deleteStackElement(newNumber);
+    deleteStack(computation);
     return totalResult;
 }
 
