@@ -34,11 +34,6 @@ target_link_libraries(sol3_2 library)
 add_executable(sol3_1 Homeworks_3/3_1sol.c)
 target_link_libraries(sol3_1 library)
 
-add_executable(sol3_1 Homeworks_3/3_1sol.c)
-target_link_libraries(sol3_1 library)
-add_executable(sol3_2 Homeworks_3/3_2sol.c)
-target_link_libraries(sol3_2 library)
-
 add_executable(sol4_1 Homeworks_4/4_1sol.c)
 target_link_libraries(sol4_1 library)
 add_executable(sol4_2 Homeworks_4/4_2sol.c)
