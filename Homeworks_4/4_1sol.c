@@ -92,6 +92,8 @@ int calculateFullExpression(char string[], int* error)
     while (string[position] != '\n') {
         if (isUnknownOperation(string, position)) {
             *error = -2;
+            deleteStackElement(newNumber);
+            deleteStack(computation);
             return 0;
         }
         if (isdigit(string[position])) {
