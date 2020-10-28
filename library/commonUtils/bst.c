@@ -82,7 +82,6 @@ bool addValueRecursive(BinaryTreeNode* node, int value)
     return true;
 }
 
-
 bool addValue(BinarySearchTree* tree, int value)
 {
     if (isEmpty(tree)) {
