@@ -9,6 +9,7 @@ set(SOURCE_LIB
         library/commonUtils/stack.c
         library/commonUtils/cyclical_list.c
         library/commonUtils/list.c
+        library/commonUtils/bst.c
 )
 
 add_library(library ${SOURCE_LIB})
@@ -38,3 +39,6 @@ add_executable(sol4_1 Homeworks_4/4_1sol.c)
 target_link_libraries(sol4_1 library)
 add_executable(sol4_2 Homeworks_4/4_2sol.c)
 add_executable(sol4_3 Homeworks_4/3sol.c)
+
+add_executable(sol5_1 Homeworks_5/5_1sol.c)
+target_link_libraries(sol5_1 library)
