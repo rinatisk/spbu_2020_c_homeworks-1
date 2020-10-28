@@ -1,6 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
 
 #include "bst.h"
 
@@ -14,7 +13,9 @@ struct BinarySearchTree {
     struct BinaryTreeNode* root;
 };
 
-enum Direction { left, right, none };
+enum Direction { left,
+    right,
+    none };
 
 BinarySearchTree* createTree()
 {
@@ -52,7 +53,7 @@ bool exists(BinarySearchTree* tree, int value)
 
 BinaryTreeNode* createNode(int value)
 {
-    BinaryTreeNode* node = (BinaryTreeNode*) malloc(sizeof(BinaryTreeNode));
+    BinaryTreeNode* node = (BinaryTreeNode*)malloc(sizeof(BinaryTreeNode));
     node->rightChild = NULL;
     node->leftChild = NULL;
     node->value = value;
@@ -68,15 +69,15 @@ bool addValueRecursive(BinaryTreeNode* node, int value)
         if (node->leftChild == NULL) {
             node->leftChild = createNode(value);
             return true;
-        }
-        else return addValueRecursive(node->leftChild, value);
+        } else
+            return addValueRecursive(node->leftChild, value);
     }
     if (value > node->value) {
         if (node->rightChild == NULL) {
             node->rightChild = createNode(value);
             return true;
-        }
-        else return addValueRecursive(node->rightChild, value);
+        } else
+            return addValueRecursive(node->rightChild, value);
     }
     return true;
 }
@@ -256,6 +257,6 @@ bool removeTree(BinarySearchTree* tree)
         free(tree->root);
         free(tree);
         return true;
-    }
-    else return false;
+    } else
+        return false;
 }
