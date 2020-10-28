@@ -1,9 +1,10 @@
 #include <stdio.h>
+
 #include "../library/commonUtils/bst.h"
 
 int main()
 {
-    BinarySearchTree *tree = createTree();
+    BinarySearchTree* tree = createTree();
     addValue(tree, 8);
     addValue(tree, 3);
     addValue(tree, 1);

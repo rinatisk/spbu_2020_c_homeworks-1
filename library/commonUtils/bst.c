@@ -1,6 +1,6 @@
-#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #include "bst.h"
 
@@ -14,13 +14,11 @@ struct BinarySearchTree {
     struct BinaryTreeNode* root;
 };
 
-enum Direction {
-    left, right, none
-};
+enum Direction { left, right, none };
 
 BinarySearchTree* createTree()
 {
-    BinarySearchTree* newTree = (BinarySearchTree*) malloc(sizeof(BinarySearchTree));
+    BinarySearchTree* newTree = (BinarySearchTree*)malloc(sizeof(BinarySearchTree));
     newTree->root = NULL;
     return newTree;
 }
@@ -51,7 +49,6 @@ bool exists(BinarySearchTree* tree, int value)
     }
     return existsRecursive(tree->root, value);
 }
-
 
 BinaryTreeNode* createNode(int value)
 {
@@ -203,17 +200,14 @@ void printNodeAndChildRecursive(BinarySearchTree* tree, BinaryTreeNode* node)
         printf("(");
         if (isLeaf(node)) {
             printf(" %d null null ", node->value);
-        }
-        else if (node->leftChild == NULL) {
+        } else if (node->leftChild == NULL) {
             printf(" %d null ", node->value);
             printNodeAndChildRecursive(tree, node->rightChild);
-        }
-        else if (node->rightChild == NULL) {
+        } else if (node->rightChild == NULL) {
             printf(" %d ", node->value);
             printNodeAndChildRecursive(tree, node->leftChild);
             printf(" null ");
-        }
-        else {
+        } else {
             printf(" %d ", node->value);
             printNodeAndChildRecursive(tree, node->leftChild);
             printNodeAndChildRecursive(tree, node->rightChild);
