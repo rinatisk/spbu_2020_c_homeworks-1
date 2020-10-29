@@ -95,8 +95,7 @@ bool isLeaf(BinaryTreeNode* node)
     return node->leftChild == NULL && node->rightChild == NULL;
 }
 
-bool
-changeParent(BinarySearchTree* tree, BinaryTreeNode* parent, BinaryTreeNode* newNode, enum Direction parentDirection)
+bool changeParent(BinarySearchTree* tree, BinaryTreeNode* parent, BinaryTreeNode* newNode, enum Direction parentDirection)
 {
     if (parentDirection == left) {
         parent->leftChild = newNode;
