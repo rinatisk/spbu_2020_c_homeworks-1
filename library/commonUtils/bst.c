@@ -95,7 +95,8 @@ bool isLeaf(BinaryTreeNode* node)
     return node->leftChild == NULL && node->rightChild == NULL;
 }
 
-bool changeParent(enum Direction parentDirection, BinaryTreeNode* parent, BinarySearchTree* tree, BinaryTreeNode* newNode)
+bool
+changeParent(BinarySearchTree* tree, BinaryTreeNode* parent, BinaryTreeNode* newNode, enum Direction parentDirection)
 {
     if (parentDirection == left) {
         parent->leftChild = newNode;
@@ -114,16 +115,16 @@ bool removeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, int value, Bi
     if (node->value == value) {
         if (isLeaf(node)) {
             free(node);
-            changeParent(parentDirection, parent, tree, NULL);
+            changeParent(tree, parent, NULL, parentDirection);
             return true;
         }
         if (node->leftChild == NULL && node->rightChild != NULL) {
-            changeParent(parentDirection, parent, tree, node->rightChild);
+            changeParent(tree, parent, node->rightChild, parentDirection);
             free(node);
             return true;
         }
         if (node->rightChild == NULL && node->leftChild != NULL) {
-            changeParent(parentDirection, parent, tree, node->leftChild);
+            changeParent(tree, parent, node->leftChild, parentDirection);
             free(node);
             return true;
         }
@@ -234,7 +235,7 @@ bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTre
         return false;
     }
     if (isLeaf(node)) {
-        changeParent(parentDirection, parent, tree, NULL);
+        changeParent(tree, parent, NULL, parentDirection);
         free(node);
         return true;
     }
@@ -244,7 +245,7 @@ bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTre
     if (node->rightChild != NULL) {
         removeTreeRecursive(tree, node->rightChild, node, right);
     }
-    changeParent(parentDirection, parent, tree, NULL);
+    changeParent(tree, parent, NULL, parentDirection);
     free(node);
     return true;
 }
