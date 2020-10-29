@@ -95,35 +95,35 @@ bool isLeaf(BinaryTreeNode* node)
     return node->leftChild == NULL && node->rightChild == NULL;
 }
 
-bool changeParent(enum Direction d, BinaryTreeNode* parent, BinarySearchTree* tree, BinaryTreeNode* newNode)
+bool changeParent(enum Direction parentDirection, BinaryTreeNode* parent, BinarySearchTree* tree, BinaryTreeNode* newNode)
 {
-    if (d == left) {
+    if (parentDirection == left) {
         parent->leftChild = newNode;
     }
-    if (d == right) {
+    if (parentDirection == right) {
         parent->rightChild = newNode;
     }
-    if (d == none) {
+    if (parentDirection == none) {
         tree->root = newNode;
     }
     return true;
 }
 
-bool removeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, int value, BinaryTreeNode* parent, enum Direction d)
+bool removeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, int value, BinaryTreeNode* parent, enum Direction parentDirection)
 {
     if (node->value == value) {
         if (isLeaf(node)) {
             free(node);
-            changeParent(d, parent, tree, NULL);
+            changeParent(parentDirection, parent, tree, NULL);
             return true;
         }
         if (node->leftChild == NULL && node->rightChild != NULL) {
-            changeParent(d, parent, tree, node->rightChild);
+            changeParent(parentDirection, parent, tree, node->rightChild);
             free(node);
             return true;
         }
         if (node->rightChild == NULL && node->leftChild != NULL) {
-            changeParent(d, parent, tree, node->leftChild);
+            changeParent(parentDirection, parent, tree, node->leftChild);
             free(node);
             return true;
         }
@@ -228,13 +228,13 @@ void printNodeAndChildForm(BinarySearchTree* tree)
     printf("\n");
 }
 
-bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTreeNode* parent, enum Direction d)
+bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTreeNode* parent, enum Direction parentDirection)
 {
     if (node == NULL) {
         return false;
     }
     if (isLeaf(node)) {
-        changeParent(d, parent, tree, NULL);
+        changeParent(parentDirection, parent, tree, NULL);
         free(node);
         return true;
     }
@@ -244,7 +244,7 @@ bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTre
     if (node->rightChild != NULL) {
         removeTreeRecursive(tree, node->rightChild, node, right);
     }
-    changeParent(d, parent, tree, NULL);
+    changeParent(parentDirection, parent, tree, NULL);
     free(node);
     return true;
 }
