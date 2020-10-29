@@ -162,10 +162,13 @@ void printAscendingRecursive(BinaryTreeNode* node)
 {
     if (node == NULL)
         return;
-
-    printAscendingRecursive(node->leftChild);
+    if (node->leftChild != NULL) {
+        printAscendingRecursive(node->leftChild);
+    }
     printf("%d ", node->value);
-    printAscendingRecursive(node->rightChild);
+    if (node->leftChild != NULL) {
+        printAscendingRecursive(node->rightChild);
+    }
 }
 
 void printAscending(BinarySearchTree* tree)
@@ -180,10 +183,13 @@ void printDescendingRecursive(BinaryTreeNode* node)
 {
     if (node == NULL)
         return;
-
-    printDescendingRecursive(node->rightChild);
+    if (node->rightChild != NULL) {
+        printDescendingRecursive(node->rightChild);
+    }
     printf("%d ", node->value);
-    printDescendingRecursive(node->leftChild);
+    if (node->leftChild != NULL) {
+        printDescendingRecursive(node->leftChild);
+    }
 }
 
 void printDescending(BinarySearchTree* tree)
@@ -204,19 +210,14 @@ void printNodeAndChildRecursive(BinarySearchTree* tree, BinaryTreeNode* node)
             printf(" %d null ", node->value);
             printNodeAndChildRecursive(tree, node->rightChild);
         } else if (node->rightChild == NULL) {
-            printf(" %d ", node->value);
+            printf(" %d null", node->value);
             printNodeAndChildRecursive(tree, node->leftChild);
-            printf(" null ");
         } else {
             printf(" %d ", node->value);
             printNodeAndChildRecursive(tree, node->leftChild);
             printNodeAndChildRecursive(tree, node->rightChild);
         }
         printf(")");
-    }
-    if (node->rightChild == NULL || node->leftChild == NULL) {
-        printf(")");
-        return;
     }
 }
 
