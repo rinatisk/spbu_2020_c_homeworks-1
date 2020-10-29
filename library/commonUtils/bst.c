@@ -173,10 +173,10 @@ void printAscendingRecursive(BinaryTreeNode* node)
 
 void printAscending(BinarySearchTree* tree)
 {
-    printf("Here's your tree: ");
+    printf("Here's your tree: ( ");
     if (tree != NULL)
         printAscendingRecursive(tree->root);
-    printf("\n");
+    printf(")\n");
 }
 
 void printDescendingRecursive(BinaryTreeNode* node)
@@ -194,10 +194,10 @@ void printDescendingRecursive(BinaryTreeNode* node)
 
 void printDescending(BinarySearchTree* tree)
 {
-    printf("Here's your tree: ");
+    printf("Here's your tree: ( ");
     if (tree != NULL)
         printDescendingRecursive(tree->root);
-    printf("\n");
+    printf(")\n");
 }
 
 void printNodeAndChildRecursive(BinarySearchTree* tree, BinaryTreeNode* node)
