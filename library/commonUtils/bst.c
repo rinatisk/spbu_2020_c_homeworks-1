@@ -166,7 +166,7 @@ void printAscendingRecursive(BinaryTreeNode* node)
         printAscendingRecursive(node->leftChild);
     }
     printf("%d ", node->value);
-    if (node->leftChild != NULL) {
+    if (node->rightChild != NULL) {
         printAscendingRecursive(node->rightChild);
     }
 }
