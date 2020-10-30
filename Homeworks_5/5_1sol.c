@@ -63,8 +63,10 @@ void menu(BinarySearchTree* tree, bool* exit)
         *exit = true;
         break;
     }
-    default: printf("unknown command");
+    default: {
+        printf("unknown command");
         break;
+    }
     }
 
 }
@@ -72,28 +74,9 @@ void menu(BinarySearchTree* tree, bool* exit)
 int main()
 {
     BinarySearchTree* tree = createTree();
-    /*
-    addValue(tree, 8);
-    addValue(tree, 3);
-    addValue(tree, 1);
-    addValue(tree, 9);
-    addValue(tree, 12);
-    printf("%d", exists(tree, 5));
-    addValue(tree, 11);
-    addValue(tree, 5);
-    addValue(tree, 4);
-    printf("%d\n", exists(tree, 5));
-
-    printAscending(tree);
-
-    removeValue(tree, 8);
-
-    printDescending(tree);
-    printNodeAndChildForm(tree);
-*/
     getHelp();
     bool exit = false;
-    while(!exit) {
+    while (!exit) {
         menu(tree, &exit);
     }
     removeTree(tree);
