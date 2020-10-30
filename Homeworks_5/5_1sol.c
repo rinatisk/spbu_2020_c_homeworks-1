@@ -67,6 +67,7 @@ void menu(BinarySearchTree* tree, bool* exit)
         printf("unknown command");
         break;
     }
+
     }
 
 }
