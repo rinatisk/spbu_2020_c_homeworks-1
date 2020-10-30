@@ -251,12 +251,16 @@ bool removeTreeRecursive(BinarySearchTree* tree, BinaryTreeNode* node, BinaryTre
 
 bool removeTree(BinarySearchTree* tree)
 {
-    if (tree != NULL) {
-        removeTreeRecursive(tree, tree->root->leftChild, tree->root, left);
-        removeTreeRecursive(tree, tree->root->rightChild, tree->root, right);
-        free(tree->root);
+    if (tree == NULL) {
+        return false;
+    }
+    if (tree->root == NULL) {
         free(tree);
         return true;
-    } else
-        return false;
+    }
+    removeTreeRecursive(tree, tree->root->leftChild, tree->root, left);
+    removeTreeRecursive(tree, tree->root->rightChild, tree->root, right);
+    free(tree->root);
+    free(tree);
+    return true;
 }
