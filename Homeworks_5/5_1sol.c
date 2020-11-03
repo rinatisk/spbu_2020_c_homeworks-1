@@ -4,14 +4,14 @@
 
 void getHelp()
 {
-    printf("0 is exit\n");
     printf("1 is add value\n");
     printf("2 is delete value\n");
-    printf("3 is print ascending\n");
-    printf("4 is print descending\n");
-    printf("5 is print nodeAndChild\n");
-    printf("6 is exist\n");
+    printf("3 is exist\n");
+    printf("4 is print ascending\n");
+    printf("5 is print descending\n");
+    printf("6 is print nodeAndChildren\n");
     printf("7 is help\n");
+    printf("8 is exit\n");
 }
 
 void menu(BinarySearchTree* tree, bool* exit)
@@ -34,18 +34,6 @@ void menu(BinarySearchTree* tree, bool* exit)
         break;
     }
     case 3: {
-        printAscending(tree);
-        break;
-    }
-    case 4: {
-        printDescending(tree);
-        break;
-    }
-    case 5: {
-        printNodeAndChildForm(tree);
-        break;
-    }
-    case 6: {
         printf("write value\n");
         scanf("%d", &value);
         if (exists(tree, value)) {
@@ -55,16 +43,28 @@ void menu(BinarySearchTree* tree, bool* exit)
         }
         break;
     }
+    case 4: {
+        printAscending(tree);
+        break;
+    }
+    case 5: {
+        printDescending(tree);
+        break;
+    }
+    case 6: {
+        printNodeAndChildrenForm(tree);
+        break;
+    }
     case 7: {
         getHelp();
         break;
     }
-    case 0: {
+    case 8: {
         *exit = true;
         break;
     }
     default: {
-        printf("unknown command");
+        printf("unknown command\n");
         break;
     }
     }

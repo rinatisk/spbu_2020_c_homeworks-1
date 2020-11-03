@@ -14,7 +14,7 @@ bool addValue(BinarySearchTree *tree, int value);
 bool removeValue(BinarySearchTree *tree, int value);
 
 void printAscending(BinarySearchTree *tree);
-void printNodeAndChildForm(BinarySearchTree* tree);
+void printNodeAndChildrenForm(BinarySearchTree* tree);
 void printDescending(BinarySearchTree* tree);
 
 #endif
