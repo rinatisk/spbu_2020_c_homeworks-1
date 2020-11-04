@@ -217,9 +217,10 @@ void removeValue(AVLTree* tree, int value)
 {
     if (tree == NULL) {
         return;
-    } else if (exists(tree, value)) {
-            tree->root = removeRecursive(value, tree->root);
-        }
+    }
+    if (exists(tree, value)) {
+        tree->root = removeRecursive(value, tree->root);
+    }
 }
 
 void printAscendingRecursive(AVLTreeNode* node)
@@ -276,8 +277,7 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
             } else if (node->rightChild == NULL) {
                     printf(" %d null", node->value);
                     printNodeAndChildrenRecursive(tree, node->leftChild);
-                } else
-                    {
+                } else {
                     printf(" %d ", node->value);
                     printNodeAndChildrenRecursive(tree, node->leftChild);
                     printNodeAndChildrenRecursive(tree, node->rightChild);
@@ -285,6 +285,7 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
         printf(")");
     }
 }
+
 
 void printNodeAndChildrenForm(AVLTree* tree)
 {
