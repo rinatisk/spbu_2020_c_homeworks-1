@@ -24,7 +24,7 @@ enum Direction {
 
 AVLTree* createTree()
 {
-    AVLTree* newTree = (AVLTree*) malloc(sizeof(AVLTree));
+    AVLTree* newTree = (AVLTree*)malloc(sizeof(AVLTree));
     newTree->root = NULL;
     return newTree;
 }
@@ -75,7 +75,7 @@ bool exists(AVLTree* tree, int value)
 
 AVLTreeNode* createNode(int value)
 {
-    AVLTreeNode* node = (AVLTreeNode*) malloc(sizeof(AVLTreeNode));
+    AVLTreeNode* node = (AVLTreeNode*)malloc(sizeof(AVLTreeNode));
     node->rightChild = NULL;
     node->leftChild = NULL;
     node->value = value;
@@ -217,8 +217,7 @@ void removeValue(AVLTree* tree, int value)
 {
     if (tree == NULL) {
         return;
-    } else
-        if (exists(tree, value)) {
+    } else if (exists(tree, value)) {
             tree->root = removeRecursive(value, tree->root);
         }
 }
@@ -271,15 +270,14 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
         printf("(");
         if (isLeaf(node)) {
             printf(" %d null null ", node->value);
-        } else
-            if (node->leftChild == NULL) {
+        } else if (node->leftChild == NULL) {
                 printf(" %d null ", node->value);
                 printNodeAndChildrenRecursive(tree, node->rightChild);
-            } else
-                if (node->rightChild == NULL) {
+            } else if (node->rightChild == NULL) {
                     printf(" %d null", node->value);
                     printNodeAndChildrenRecursive(tree, node->leftChild);
-                } else {
+                } else
+                    {
                     printf(" %d ", node->value);
                     printNodeAndChildrenRecursive(tree, node->leftChild);
                     printNodeAndChildrenRecursive(tree, node->rightChild);
