@@ -24,7 +24,7 @@ enum Direction {
 
 AVLTree* createTree()
 {
-    AVLTree* newTree = (AVLTree*)malloc(sizeof(AVLTree));
+    AVLTree* newTree = (AVLTree*) malloc(sizeof(AVLTree));
     newTree->root = NULL;
     return newTree;
 }
@@ -75,7 +75,7 @@ bool exists(AVLTree* tree, int value)
 
 AVLTreeNode* createNode(int value)
 {
-    AVLTreeNode* node = (AVLTreeNode*)malloc(sizeof(AVLTreeNode));
+    AVLTreeNode* node = (AVLTreeNode*) malloc(sizeof(AVLTreeNode));
     node->rightChild = NULL;
     node->leftChild = NULL;
     node->value = value;
@@ -190,24 +190,25 @@ AVLTreeNode* removeRecursive(int value, AVLTreeNode* root)
 
     if (value < root->value) {
         root->leftChild = removeRecursive(value, root->leftChild);
-    } else
-        if (value > root->value) {
-            root->rightChild = removeRecursive(value, root->rightChild);
-        } else {
-            AVLTreeNode* leftChild = root->leftChild;
-            AVLTreeNode* rightChild = root->rightChild;
+    }
+    if (value > root->value) {
+        root->rightChild = removeRecursive(value, root->rightChild);
+    }
+    if (value == root->value) {
+        AVLTreeNode* leftChild = root->leftChild;
+        AVLTreeNode* rightChild = root->rightChild;
 
-            if (rightChild == NULL) {
-                free(root);
-                return leftChild;
-            }
-
-            AVLTreeNode* minimum = getRightMinimum(rightChild);
-            minimum->rightChild = removeRightMinimum(rightChild);
-            minimum->leftChild = leftChild;
+        if (rightChild == NULL) {
             free(root);
-            return balance(minimum);
+            return leftChild;
         }
+
+        AVLTreeNode* minimum = getRightMinimum(rightChild);
+        minimum->rightChild = removeRightMinimum(rightChild);
+        minimum->leftChild = leftChild;
+        free(root);
+        return balance(minimum);
+    }
 
     return balance(root);
 }
