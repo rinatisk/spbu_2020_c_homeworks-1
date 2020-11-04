@@ -24,7 +24,7 @@ enum Direction {
 
 AVLTree* createTree()
 {
-    AVLTree* newTree = (AVLTree*) malloc(sizeof(AVLTree));
+    AVLTree* newTree = (AVLTree*)malloc(sizeof(AVLTree));
     newTree->root = NULL;
     return newTree;
 }
@@ -75,7 +75,7 @@ bool exists(AVLTree* tree, int value)
 
 AVLTreeNode* createNode(int value)
 {
-    AVLTreeNode* node = (AVLTreeNode*) malloc(sizeof(AVLTreeNode));
+    AVLTreeNode* node = (AVLTreeNode*)malloc(sizeof(AVLTreeNode));
     node->rightChild = NULL;
     node->leftChild = NULL;
     node->value = value;
@@ -125,21 +125,18 @@ AVLTreeNode* balance(AVLTreeNode* root)
     return root;
 }
 
-
 AVLTreeNode* addValueRecursive(AVLTreeNode* node, int value)
 {
     if (value < node->value) {
         if (node->leftChild == NULL) {
             node->leftChild = createNode(value);
-        }
-        else
+        } else
             node->leftChild = addValueRecursive(node->leftChild, value);
     }
     if (value > node->value) {
         if (node->rightChild == NULL) {
             node->rightChild = createNode(value);
-        }
-        else
+        } else
             node->rightChild = addValueRecursive(node->rightChild, value);
     }
     return balance(node);
@@ -193,24 +190,24 @@ AVLTreeNode* removeRecursive(int value, AVLTreeNode* root)
 
     if (value < root->value) {
         root->leftChild = removeRecursive(value, root->leftChild);
-    }
-    else if (value > root->value) {
-        root->rightChild = removeRecursive(value, root->rightChild);
-    } else {
-        AVLTreeNode* leftChild = root->leftChild;
-        AVLTreeNode* rightChild = root->rightChild;
+    } else
+        if (value > root->value) {
+            root->rightChild = removeRecursive(value, root->rightChild);
+        } else {
+            AVLTreeNode* leftChild = root->leftChild;
+            AVLTreeNode* rightChild = root->rightChild;
 
-        if (rightChild == NULL) {
+            if (rightChild == NULL) {
+                free(root);
+                return leftChild;
+            }
+
+            AVLTreeNode* minimum = getRightMinimum(rightChild);
+            minimum->rightChild = removeRightMinimum(rightChild);
+            minimum->leftChild = leftChild;
             free(root);
-            return leftChild;
+            return balance(minimum);
         }
-
-        AVLTreeNode* minimum = getRightMinimum(rightChild);
-        minimum->rightChild = removeRightMinimum(rightChild);
-        minimum->leftChild = leftChild;
-        free(root);
-        return balance(minimum);
-    }
 
     return balance(root);
 }
@@ -219,10 +216,10 @@ void removeValue(AVLTree* tree, int value)
 {
     if (tree == NULL) {
         return;
-    }
-    else if (exists(tree, value)) {
-        tree->root = removeRecursive(value, tree->root);
-    }
+    } else
+        if (exists(tree, value)) {
+            tree->root = removeRecursive(value, tree->root);
+        }
 }
 
 void printAscendingRecursive(AVLTreeNode* node)
@@ -273,20 +270,19 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
         printf("(");
         if (isLeaf(node)) {
             printf(" %d null null ", node->value);
-        }
-        else if (node->leftChild == NULL) {
-            printf(" %d null ", node->value);
-            printNodeAndChildrenRecursive(tree, node->rightChild);
-        }
-        else if (node->rightChild == NULL) {
-            printf(" %d null", node->value);
-            printNodeAndChildrenRecursive(tree, node->leftChild);
-        }
-        else {
-            printf(" %d ", node->value);
-            printNodeAndChildrenRecursive(tree, node->leftChild);
-            printNodeAndChildrenRecursive(tree, node->rightChild);
-        }
+        } else
+            if (node->leftChild == NULL) {
+                printf(" %d null ", node->value);
+                printNodeAndChildrenRecursive(tree, node->rightChild);
+            } else
+                if (node->rightChild == NULL) {
+                    printf(" %d null", node->value);
+                    printNodeAndChildrenRecursive(tree, node->leftChild);
+                } else {
+                    printf(" %d ", node->value);
+                    printNodeAndChildrenRecursive(tree, node->leftChild);
+                    printNodeAndChildrenRecursive(tree, node->rightChild);
+                }
         printf(")");
     }
 }
