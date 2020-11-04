@@ -12,18 +12,19 @@ typedef struct AVLTreeNode {
     struct AVLTreeNode* rightChild;
 } AVLTreeNode;
 
-
 typedef struct AVLTree {
     struct AVLTreeNode* root;
 } AVLTree;
 
-enum Direction { left,
+enum Direction {
+    left,
     right,
-    none };
+    none
+};
 
 AVLTree* createTree()
 {
-    AVLTree* newTree = (AVLTree*)malloc(sizeof(AVLTree));
+    AVLTree* newTree = (AVLTree*) malloc(sizeof(AVLTree));
     newTree->root = NULL;
     return newTree;
 }
@@ -64,7 +65,6 @@ void updateHeight(AVLTreeNode* node)
     node->height = max(heightLeft, heightRight) + 1;
 }
 
-
 bool exists(AVLTree* tree, int value)
 {
     if (isEmpty(tree)) {
@@ -75,7 +75,7 @@ bool exists(AVLTree* tree, int value)
 
 AVLTreeNode* createNode(int value)
 {
-    AVLTreeNode* node = (AVLTreeNode*)malloc(sizeof(AVLTreeNode));
+    AVLTreeNode* node = (AVLTreeNode*) malloc(sizeof(AVLTreeNode));
     node->rightChild = NULL;
     node->leftChild = NULL;
     node->value = value;
@@ -85,8 +85,7 @@ AVLTreeNode* createNode(int value)
 
 AVLTreeNode* rotateRight(AVLTreeNode* root)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         return NULL;
     }
     AVLTreeNode* pivot = root->leftChild;
@@ -99,8 +98,7 @@ AVLTreeNode* rotateRight(AVLTreeNode* root)
 
 AVLTreeNode* rotateLeft(AVLTreeNode* root)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         return NULL;
     }
     AVLTreeNode* pivot = root->rightChild;
@@ -114,14 +112,12 @@ AVLTreeNode* rotateLeft(AVLTreeNode* root)
 AVLTreeNode* balance(AVLTreeNode* root)
 {
     updateHeight(root);
-    if (getBalanceFactor(root) == 2)
-    {
+    if (getBalanceFactor(root) == 2) {
         if (getBalanceFactor(root->rightChild) < 0)
             root->rightChild = rotateRight(root->rightChild);
         return rotateLeft(root);
     }
-    if (getBalanceFactor(root) == -2)
-    {
+    if (getBalanceFactor(root) == -2) {
         if (getBalanceFactor(root->leftChild) > 0)
             root->leftChild = rotateLeft(root->leftChild);
         return rotateRight(root);
@@ -135,13 +131,15 @@ AVLTreeNode* addValueRecursive(AVLTreeNode* node, int value)
     if (value < node->value) {
         if (node->leftChild == NULL) {
             node->leftChild = createNode(value);
-        } else
+        }
+        else
             node->leftChild = addValueRecursive(node->leftChild, value);
     }
     if (value > node->value) {
         if (node->rightChild == NULL) {
             node->rightChild = createNode(value);
-        } else
+        }
+        else
             node->rightChild = addValueRecursive(node->rightChild, value);
     }
     return balance(node);
@@ -162,13 +160,11 @@ bool isLeaf(AVLTreeNode* node)
 
 AVLTreeNode* getRightMinimum(AVLTreeNode* root)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         return NULL;
     }
 
-    if (root->leftChild != NULL)
-    {
+    if (root->leftChild != NULL) {
         return getRightMinimum(root->leftChild);
     }
 
@@ -177,13 +173,11 @@ AVLTreeNode* getRightMinimum(AVLTreeNode* root)
 
 AVLTreeNode* removeRightMinimum(AVLTreeNode* root)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         return NULL;
     }
 
-    if (root->leftChild == NULL)
-    {
+    if (root->leftChild == NULL) {
         return root->rightChild;
     }
 
@@ -193,26 +187,20 @@ AVLTreeNode* removeRightMinimum(AVLTreeNode* root)
 
 AVLTreeNode* removeRecursive(int value, AVLTreeNode* root)
 {
-    if (root == NULL)
-    {
+    if (root == NULL) {
         return NULL;
     }
 
-    if (value < root->value)
-    {
+    if (value < root->value) {
         root->leftChild = removeRecursive(value, root->leftChild);
     }
-    else if (value > root->value)
-    {
+    else if (value > root->value) {
         root->rightChild = removeRecursive(value, root->rightChild);
-    }
-    else
-    {
+    } else {
         AVLTreeNode* leftChild = root->leftChild;
         AVLTreeNode* rightChild = root->rightChild;
 
-        if (rightChild == NULL)
-        {
+        if (rightChild == NULL) {
             free(root);
             return leftChild;
         }
@@ -229,12 +217,10 @@ AVLTreeNode* removeRecursive(int value, AVLTreeNode* root)
 
 void removeValue(AVLTree* tree, int value)
 {
-    if (tree == NULL)
-    {
+    if (tree == NULL) {
         return;
     }
-    else if (exists(tree, value))
-    {
+    else if (exists(tree, value)) {
         tree->root = removeRecursive(value, tree->root);
     }
 }
@@ -287,13 +273,16 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
         printf("(");
         if (isLeaf(node)) {
             printf(" %d null null ", node->value);
-        } else if (node->leftChild == NULL) {
+        }
+        else if (node->leftChild == NULL) {
             printf(" %d null ", node->value);
             printNodeAndChildrenRecursive(tree, node->rightChild);
-        } else if (node->rightChild == NULL) {
+        }
+        else if (node->rightChild == NULL) {
             printf(" %d null", node->value);
             printNodeAndChildrenRecursive(tree, node->leftChild);
-        } else {
+        }
+        else {
             printf(" %d ", node->value);
             printNodeAndChildrenRecursive(tree, node->leftChild);
             printNodeAndChildrenRecursive(tree, node->rightChild);
