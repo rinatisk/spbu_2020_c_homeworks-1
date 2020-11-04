@@ -229,17 +229,20 @@ void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
         printf("(");
         if (isLeaf(node)) {
             printf(" %d null null ", node->value);
-        } else if (node->leftChild == NULL) {
-                printf(" %d null ", node->value);
-                printNodeAndChildrenRecursive(tree, node->rightChild);
-            } else if (node->rightChild == NULL) {
-                    printf(" %d null", node->value);
-                    printNodeAndChildrenRecursive(tree, node->leftChild);
-                } else {
-                    printf(" %d ", node->value);
-                    printNodeAndChildrenRecursive(tree, node->leftChild);
-                    printNodeAndChildrenRecursive(tree, node->rightChild);
-                }
+        }
+        if ((node->leftChild == NULL) && (node->rightChild != NULL)) {
+            printf(" %d null ", node->value);
+            printNodeAndChildrenRecursive(tree, node->rightChild);
+        }
+        if ((node->rightChild == NULL) && (node->leftChild != NULL)) {
+            printf(" %d null", node->value);
+            printNodeAndChildrenRecursive(tree, node->leftChild);
+        }
+        if ((node->leftChild != NULL) && (node->rightChild != NULL)) {
+            printf(" %d ", node->value);
+            printNodeAndChildrenRecursive(tree, node->leftChild);
+            printNodeAndChildrenRecursive(tree, node->rightChild);
+        }
         printf(")");
     }
 }
