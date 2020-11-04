@@ -223,6 +223,34 @@ void removeValue(AVLTree* tree, int value)
     }
 }
 
+void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
+{
+    if (node != NULL) {
+        printf("(");
+        if (isLeaf(node)) {
+            printf(" %d null null ", node->value);
+        } else if (node->leftChild == NULL) {
+                printf(" %d null ", node->value);
+                printNodeAndChildrenRecursive(tree, node->rightChild);
+            } else if (node->rightChild == NULL) {
+                    printf(" %d null", node->value);
+                    printNodeAndChildrenRecursive(tree, node->leftChild);
+                } else {
+                    printf(" %d ", node->value);
+                    printNodeAndChildrenRecursive(tree, node->leftChild);
+                    printNodeAndChildrenRecursive(tree, node->rightChild);
+                }
+        printf(")");
+    }
+}
+
+void printNodeAndChildrenForm(AVLTree* tree)
+{
+    printf("Here's your tree: ");
+    printNodeAndChildrenRecursive(tree, tree->root);
+    printf("\n");
+}
+
 void printAscendingRecursive(AVLTreeNode* node)
 {
     if (node == NULL)
@@ -263,34 +291,6 @@ void printDescending(AVLTree* tree)
     if (tree != NULL)
         printDescendingRecursive(tree->root);
     printf(")\n");
-}
-
-void printNodeAndChildrenRecursive(AVLTree* tree, AVLTreeNode* node)
-{
-    if (node != NULL) {
-        printf("(");
-        if (isLeaf(node)) {
-            printf(" %d null null ", node->value);
-        } else if (node->leftChild == NULL) {
-                printf(" %d null ", node->value);
-                printNodeAndChildrenRecursive(tree, node->rightChild);
-            } else if (node->rightChild == NULL) {
-                    printf(" %d null", node->value);
-                    printNodeAndChildrenRecursive(tree, node->leftChild);
-                } else {
-                    printf(" %d ", node->value);
-                    printNodeAndChildrenRecursive(tree, node->leftChild);
-                    printNodeAndChildrenRecursive(tree, node->rightChild);
-                }
-        printf(")");
-    }
-}
-
-void printNodeAndChildrenForm(AVLTree* tree)
-{
-    printf("Here's your tree: ");
-    printNodeAndChildrenRecursive(tree, tree->root);
-    printf("\n");
 }
 
 bool removeTreeRecursive(AVLTree* tree, AVLTreeNode* node)
