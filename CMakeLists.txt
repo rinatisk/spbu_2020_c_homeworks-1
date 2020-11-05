@@ -38,3 +38,5 @@ add_executable(sol4_1 Homeworks_4/4_1sol.c)
 target_link_libraries(sol4_1 library)
 add_executable(sol4_2 Homeworks_4/4_2sol.c)
 add_executable(sol4_3 Homeworks_4/3sol.c)
+
+add_executable(test1 test1/test1.1.c)
