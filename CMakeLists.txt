@@ -13,6 +13,7 @@ set(SOURCE_LIB
 )
 
 add_library(library ${SOURCE_LIB})
+add_library(complex library/commonUtils/complex.c)
 
 add_executable(sol1_1 Homeworks_1/1sol.c)
 target_link_libraries(sol1_1 library)
@@ -42,3 +43,7 @@ add_executable(sol4_3 Homeworks_4/3sol.c)
 
 add_executable(sol5_1 Homeworks_5/5_1sol.c)
 target_link_libraries(sol5_1 library)
+
+add_executable(test1.1 test1/test1.1.c)
+add_executable(test1.2 test1/test1.2.c)
+target_link_libraries(test1.2 complex)
