@@ -155,20 +155,20 @@ bool isLeaf(AVLTreeNode* node)
     return node->leftChild == NULL && node->rightChild == NULL;
 }
 
-AVLTreeNode* getRightMinimum(AVLTreeNode* root)
+AVLTreeNode* getMinimum(AVLTreeNode* root)
 {
     if (root == NULL) {
         return NULL;
     }
 
     if (root->leftChild != NULL) {
-        return getRightMinimum(root->leftChild);
+        return getMinimum(root->leftChild);
     }
 
     return root;
 }
 
-AVLTreeNode* removeRightMinimum(AVLTreeNode* root)
+AVLTreeNode* removeMinimum(AVLTreeNode* root)
 {
     if (root == NULL) {
         return NULL;
@@ -178,7 +178,7 @@ AVLTreeNode* removeRightMinimum(AVLTreeNode* root)
         return root->rightChild;
     }
 
-    root->leftChild = removeRightMinimum(root->leftChild);
+    root->leftChild = removeMinimum(root->leftChild);
     return balance(root);
 }
 
@@ -203,8 +203,8 @@ AVLTreeNode* removeRecursive(int value, AVLTreeNode* root)
             return leftChild;
         }
 
-        AVLTreeNode* minimum = getRightMinimum(rightChild);
-        minimum->rightChild = removeRightMinimum(rightChild);
+        AVLTreeNode* minimum = getMinimum(rightChild);
+        minimum->rightChild = removeMinimum(rightChild);
         minimum->leftChild = leftChild;
         free(root);
         return balance(minimum);
