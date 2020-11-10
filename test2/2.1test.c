@@ -5,7 +5,16 @@ int computeFibonacci(int number)
     int firstPrevious = 1;
     int secondPrevious = 1;
     int toChangeValue = 0;
-    if (number <= 2) return 1;
+
+    if (number <= 0) {
+        printf("Incorrect number\n");
+        return -1;
+    }
+
+    if (number <= 2) {
+        return 1;
+    }
+
     for (int i = 2; i < number; ++i) {
         toChangeValue = firstPrevious + secondPrevious;
         firstPrevious = secondPrevious;
