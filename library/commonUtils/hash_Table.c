@@ -5,8 +5,11 @@
 #include "hash_Table.h"
 #include "numericOperations.h"
 
-enum CellType { empty, used,
-        deleted };
+enum CellType {
+    empty,
+    used,
+    deleted
+};
 
 typedef struct HashElement {
     int value;
