@@ -21,7 +21,7 @@ bool getValue(HashTable* table, char* key, int* result);
 
 void destroyHashTable(HashTable* table);
 
-bool delete(HashTable* table, char* key);
+bool deleteElementFromKey(HashTable* table, char* key);
 
 void printHashTable(HashTable* hashTable);
 

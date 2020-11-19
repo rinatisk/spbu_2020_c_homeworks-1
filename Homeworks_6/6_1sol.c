@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
-#include "../library/fileOperations.h"
 #include "../library/commonUtils/hash_Table.h"
+#include "../library/fileOperations.h"
 
 int main()
 {
@@ -15,7 +14,7 @@ int main()
         add(hashtable, currentKey, 1);
         currentKey = getWord(text);
     }
-    delete(hashtable, "the");
+    deleteElementFromKey(hashtable, "the");
     printInfoAboutTable(hashtable);
     printTopWords(hashtable, 12);
     free(currentKey);

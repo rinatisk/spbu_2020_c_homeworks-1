@@ -1,11 +1,13 @@
-#include "hash_Table.h"
-#include "numericOperations.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-enum CellType { empty, used, deleted };
+#include "hash_Table.h"
+#include "numericOperations.h"
+
+enum CellType { empty,
+        used,
+        deleted };
 
 typedef struct HashElement {
     int value;
@@ -67,7 +69,8 @@ HashTable* createHashTableWithSize(int polynomFactor, int size)
     return newTable;
 }
 
-HashTable* createHashTable(int polynomFactor) {
+HashTable* createHashTable(int polynomFactor)
+{
     return createHashTableWithSize(polynomFactor, 1);
 }
 
@@ -81,7 +84,8 @@ int getHash(char* key, int polynomFactor, int module)
     return currentHash;
 }
 
-void destroyHashTable(HashTable* table) {
+void destroyHashTable(HashTable* table)
+{
     for (int i = 0; i < table->bucketCount; ++i) {
         if (table->hashTable[i] != empty) {
             deleteHashElement(table->hashTable[i]);
@@ -92,7 +96,8 @@ void destroyHashTable(HashTable* table) {
     free(table);
 }
 
-void expandTable(HashTable* table) {
+void expandTable(HashTable* table)
+{
     HashElement** oldElements = table->hashTable;
     enum CellType* oldTypes = table->types;
 
@@ -151,7 +156,7 @@ bool add(HashTable* table, char* key, int value)
     return true;
 }
 
-bool delete(HashTable* table, char* key)
+bool deleteElementFromKey(HashTable* table, char* key)
 {
     int probeStep = 0;
     int startHash = getHash(key, table->polynomFactor, table->bucketCount);
@@ -185,10 +190,8 @@ bool getValue(HashTable* table, char* key, int* result)
     int startIndex = getHash(key, table->polynomFactor, table->bucketCount);
     int currentIndex = startIndex;
     printf("%d", table->types[0]);
-    while(table->types[currentIndex] != empty)
-    {
-        if(strcmp(table->hashTable[currentIndex]->key, key) == 0)
-        {
+    while (table->types[currentIndex] != empty) {
+        if (strcmp(table->hashTable[currentIndex]->key, key) == 0) {
             *result = table->hashTable[currentIndex]->value;
             return true;
         }
@@ -229,8 +232,6 @@ void printNumberOfEmptyBucket(HashTable* hashTable)
     printf("number of empty bucket - %d\n", numberOfEmptyBucket);
 }
 
-
-
 void printAverageProbeNumber(HashTable* hashTable)
 {
     int countProbe = 0;
@@ -243,7 +244,6 @@ void printAverageProbeNumber(HashTable* hashTable)
     }
     printf("average probe number - %f\n", (float)(sumProbe / (float)countProbe));
 }
-
 
 int getMaxValue(int* UnsortedArray, int size)
 {
@@ -264,7 +264,7 @@ void printKeysByProbe(HashTable* hashTable, int probe)
     for (int i = 0; i < hashTable->bucketCount; ++i) {
         if (hashTable->types[i] == used && hashTable->hashTable[i]->numberOfProbes == probe) {
             for (int j = 0; hashTable->hashTable[i]->key[j] != '\0'; ++j) {
-                printf("%c",  hashTable->hashTable[i]->key[j]);
+                printf("%c", hashTable->hashTable[i]->key[j]);
             }
             printf(" - %d \n", probe);
         }
@@ -276,7 +276,7 @@ void printKeysByValue(HashTable* hashTable, int value)
     for (int i = 0; i < hashTable->bucketCount; ++i) {
         if (hashTable->types[i] == used && hashTable->hashTable[i]->value == value) {
             for (int j = 0; hashTable->hashTable[i]->key[j] != '\0'; ++j) {
-                printf("%c",  hashTable->hashTable[i]->key[j]);
+                printf("%c", hashTable->hashTable[i]->key[j]);
             }
             printf("- %d \n", value);
         }
