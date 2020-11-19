@@ -1,12 +1,11 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "hash_Table.h"
 #include "numericOperations.h"
 
-enum CellType { empty,
-        used,
+enum CellType { empty, used,
         deleted };
 
 typedef struct HashElement {
@@ -128,7 +127,6 @@ int getIndex(HashTable* hashTable, int probeNumber, int hash)
     return (hash + (probeNumber + probeNumber * probeNumber) / 2) % hashTable->bucketCount;
 }
 
-
 bool add(HashTable* table, char* key, int value)
 {
     int probeStep = 0;
@@ -209,7 +207,7 @@ void printHashTable(HashTable* hashTable)
     for (int i = 0; i < hashTable->bucketCount; ++i) {
         if (hashTable->types[i] == used) {
             for (int j = 0; hashTable->hashTable[i]->key[j] != '\0'; ++j) {
-                printf("%c",  hashTable->hashTable[i]->key[j]);
+                printf("%c", hashTable->hashTable[i]->key[j]);
             }
             printf("- %d probes %d value \n", hashTable->hashTable[i]->numberOfProbes, hashTable->hashTable[i]->value);
         }

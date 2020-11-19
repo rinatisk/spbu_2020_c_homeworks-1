@@ -6,7 +6,6 @@
 
 #include "fileOperations.h"
 
-
 bool isLetter(char character)
 {
     return ('a' <= character && character <= 'z') || ('A' <= character && character <= 'Z');
@@ -18,8 +17,7 @@ char* expandString(char* oldString, int* oldSize)
     if (newString == NULL) {
         printf("error in allocating memory\n");
         return NULL;
-
-   }
+    }
     memset(newString, 0, *oldSize * 2 * sizeof(char));
     for (int i = 0; i < *oldSize; ++i) {
         newString[i] = oldString[i];
