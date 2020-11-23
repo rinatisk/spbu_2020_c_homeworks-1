@@ -89,8 +89,6 @@ bool isConnected(int fromVertex, int toVertex, Graph* graph)
     int* vertexState = (int*)malloc(graph->countVertex * sizeof(int));
     memset(vertexState, 0, graph->countVertex * sizeof(int));
     depthFirstSearch(graph, fromVertex, vertexState);
-    for (int i = 0; i < graph->countVertex; ++i) {
-    }
     return vertexState[toVertex] > 0;
 }
 
