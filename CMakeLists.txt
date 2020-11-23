@@ -52,5 +52,8 @@ add_executable(test1.1 test1/test1.1.c)
 add_executable(test1.2 test1/test1.2.c)
 target_link_libraries(test1.2 complex)
 
+
 add_executable(sol7_1 Homeworks_7/7.1sol.c)
 target_link_libraries(sol7_1 library)
+
+add_executable(test2.1 test2/2.1test.c)
