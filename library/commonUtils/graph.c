@@ -55,7 +55,8 @@ bool removeEdgeArray(Edge** toRemoveEdgeArray, int sizeOfArray)
     return true;
 }
 
-Graph* createGraph(int countEdges, int countVertex, Edge** edges) {
+Graph* createGraph(int countEdges, int countVertex, Edge** edges)
+{
     Graph* graph = (Graph*)malloc(sizeof(Graph));
     graph->countVertex = countVertex;
     graph->countEdges = countEdges;
@@ -86,7 +87,7 @@ bool removeGraph(Graph* toRemoveGraph)
 bool isConnected(int fromVertex, int toVertex, Graph* graph)
 {
     int* vertexState = (int*)malloc(graph->countVertex * sizeof(int));
-    memset(vertexState,0,graph->countVertex * sizeof(int));
+    memset(vertexState, 0, graph->countVertex * sizeof(int));
     depthFirstSearch(graph, fromVertex, vertexState);
     for (int i = 0; i < graph->countVertex; ++i) {
     }
@@ -110,7 +111,7 @@ bool depthFirstSearch(Graph* graph, int currentVertex, int* vertexState)
             if (vertexState[i] == 1) {
                 return true;
             }
-            if (vertexState[i] == 0){
+            if (vertexState[i] == 0) {
                 if (depthFirstSearch(graph, i, vertexState)) {
                     return true;
                 }
@@ -124,7 +125,7 @@ bool depthFirstSearch(Graph* graph, int currentVertex, int* vertexState)
 bool isCycled(Graph* graph)
 {
     int* vertexState = (int*)malloc(graph->countVertex * sizeof(int));
-    memset(vertexState,0,graph->countVertex * sizeof(int));
+    memset(vertexState, 0, graph->countVertex * sizeof(int));
     for (int i = 0; i < graph->countVertex; ++i) {
         if (vertexState[i] == 0) {
             if (depthFirstSearch(graph, i, vertexState)) {
