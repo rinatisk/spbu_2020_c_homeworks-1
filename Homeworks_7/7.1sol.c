@@ -27,8 +27,7 @@ void printInfoAboutStudents(Graph* graphOfStudents, int quantityOfStudents)
             printf("number of student - %d : didn't pass anything\n", numberOfStudent);
         }
         if (numberOfStudent != originalAuthor && originalAuthor != 0) {
-            printf("number of student - %d : number of student from who cheated - %d\n", numberOfStudent,
-                   originalAuthor);
+            printf("number of student - %d : number of student from who cheated - %d\n", numberOfStudent, originalAuthor);
         }
     }
 }
