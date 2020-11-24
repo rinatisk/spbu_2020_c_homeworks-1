@@ -52,3 +52,5 @@ add_executable(test1.2 test1/test1.2.c)
 target_link_libraries(test1.2 complex)
 
 add_executable(sol2.2 test2/2.2sol.c)
+
+add_executable(test2.1 test2/2.1test.c)
