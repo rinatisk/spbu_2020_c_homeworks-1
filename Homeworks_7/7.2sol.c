@@ -60,14 +60,14 @@ Edge** getRoadsFromFile(int quantityOfRoads, FILE* file)
     return roads;
 }
 
-bool isCityInState(int* citiesInState, int citiesInStateNumber, int city)
+bool isCityInState(int* citiesInState, int citiesInStateNumber, int cityNumber)
 {
+    bool isFind = false;
     for (int i = 0; i < citiesInStateNumber; ++i) {
-        if (citiesInState[i] == city) {
-            return true;
-        }
+        isFind += citiesInState[i] == cityNumber;
+
     }
-    return false;
+    return isFind;
 }
 
 int** allocStates(int quantityOfCities, int quantityOfState)
@@ -97,17 +97,13 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     return states;
 }
 
-int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, int* citiesInStateArray, int** states,
-                   int stateNumber)
+int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, int* citiesInStateArray, int** states, int stateNumber)
 {
     int toAddCity = 0;
     int toAddIndex = 0;
     int shortestRoad = 0;
-    for (int i = 0; i < quantityOfCity; ++i) {
-        if (states[stateNumber][i] == -1) {
-            toAddIndex = i;
-            break;
-        }
+    for (int i = 0; states[stateNumber][toAddIndex] != -1; ++i) {
+        toAddIndex = i + 1;
     }
     bool isFirstLength = true;
     bool isCurrentIndexes = false;
@@ -161,8 +157,7 @@ int main()
             break;
         }
         for (int i = 0; i < quantityOfState; ++i) {
-            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, quantityOfCity, citiesInStateArray,
-                                                     states, i);
+            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, quantityOfCity, citiesInStateArray, states, i);
             if (quantityOfCitiesInState == quantityOfCity) {
                 break;
             }
