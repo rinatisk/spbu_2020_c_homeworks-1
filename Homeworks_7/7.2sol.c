@@ -97,8 +97,7 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* usedCit
     return states;
 }
 
-int addCityToState(int* usedCities, int usedCitiesNumber, int stateIndex, Graph* graphOfCities, int** states,
-                   int quantityOfCity)
+int addCityToState(int* usedCities, int usedCitiesNumber, int stateIndex, Graph* graphOfCities, int** states, int quantityOfCity)
 {
     int shortestRoad = 0;
     int toAddCity = 0;
@@ -152,19 +151,18 @@ int main()
     int quantityOfState = getNumberFromFile(text);
     int* usedCities = addCitiesInState(quantityOfCity);
     int quantityOfCitiesInState = quantityOfState;
-    int** states = addCapitalToStates(quantityOfCity, quantityOfState, usedCities, text);;
+    int** states = addCapitalToStates(quantityOfCity, quantityOfState, usedCities, text);
     Graph* graphOfCities = createGraph(quantityOfRoads, quantityOfCity + 1, roads);
     for (int loop = 0; loop < ((quantityOfCity - quantityOfState) / quantityOfState + 1); ++loop) {
         if (quantityOfCitiesInState == quantityOfCity) {
             break;
         }
         for (int i = 0; i < quantityOfState; ++i) {
-            quantityOfCitiesInState = addCityToState(usedCities, quantityOfCitiesInState, i, graphOfCities, states,
-                                                     quantityOfCity);
+            quantityOfCitiesInState = addCityToState(usedCities, quantityOfCitiesInState, i, graphOfCities, states, quantityOfCity);
             if (quantityOfCitiesInState == quantityOfCity) {
                 break;
             }
-            }
+        }
     }
 
     printCities(states, quantityOfState, quantityOfCity);
