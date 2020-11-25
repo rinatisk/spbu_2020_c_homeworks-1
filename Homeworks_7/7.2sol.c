@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../library/commonUtils/graph.h"
 #include "../library/commonUtils/arrayOperations.h"
+#include "../library/commonUtils/graph.h"
 
 int getNewNumber(char* string)
 {

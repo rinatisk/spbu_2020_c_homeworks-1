@@ -137,7 +137,7 @@ bool isCycled(Graph* graph)
     return false;
 }
 
-int getLengthFromEdge(Graph* graph, int i, int j)
+int getLengthFromEdge(Graph* graph, int fromVertex, int toVertex)
 {
-    return graph->matrix[i][j];
+    return graph->matrix[fromVertex][toVertex];
 }
