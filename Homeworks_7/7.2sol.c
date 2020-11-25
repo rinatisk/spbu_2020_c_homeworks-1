@@ -64,7 +64,8 @@ bool isCityInState(int* citiesInState, int citiesInStateNumber, int cityNumber)
 {
     bool isFind = false;
     for (int i = 0; i < citiesInStateNumber; ++i) {
-        isFind += citiesInState[i] == cityNumber;}
+        isFind += citiesInState[i] == cityNumber;
+    }
     return isFind;
 }
 
