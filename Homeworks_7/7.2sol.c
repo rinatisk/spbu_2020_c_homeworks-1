@@ -13,14 +13,16 @@ typedef struct States {
     int** statesMatrix;
     int* citiesInStateArray;
     int quantityOfState;
+    int quantityOfCities;
 } States;
 
-States* createState(int* citiesInStateArray, int** statesMatrix, int quantityOfState)
+States* createState(int* citiesInStateArray, int** statesMatrix, int quantityOfState, int quantityOfCities)
 {
     States* states = malloc(sizeof(States));
     states->statesMatrix = statesMatrix;
     states->citiesInStateArray = citiesInStateArray;
     states->quantityOfState = quantityOfState;
+    states->quantityOfCities = quantityOfCities;
     return states;
 }
 
@@ -147,26 +149,26 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
     return citiesInState + 1;
 }
 
-void addingCitiesToStates(int quantityOfCity, int quantityOfState, int quantityOfCitiesInState, Graph* graphOfCities, States* states)
+void addingCitiesToStates(int quantityOfCitiesInState, Graph* graphOfCities, States* states)
 {
-    for (int loop = 0; loop < ((quantityOfCity - quantityOfState) / quantityOfState + 1); ++loop) {
-        if (quantityOfCitiesInState == quantityOfCity) {
+    for (int loop = 0; loop < ((states->quantityOfCities - states->quantityOfState) / states->quantityOfState + 1); ++loop) {
+        if (quantityOfCitiesInState == states->quantityOfCities) {
             break;
         }
-        for (int i = 0; i < quantityOfState; ++i) {
-            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, quantityOfCity, states, i);
-            if (quantityOfCitiesInState == quantityOfCity) {
+        for (int i = 0; i < states->quantityOfState; ++i) {
+            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, states->quantityOfCities, states, i);
+            if (quantityOfCitiesInState == states->quantityOfCities ) {
                 break;
             }
         }
     }
 }
 
-void printCities(States* states, int quantityOfState, int quantityOfCities)
+void printCities(States* states)
 {
-    for (int i = 0; i < quantityOfState; ++i) {
+    for (int i = 0; i < states->quantityOfState; ++i) {
         printf("State - %d\nCities: (", i + 1);
-        for (int j = 0; j < quantityOfCities; ++j) {
+        for (int j = 0; j < states->quantityOfCities; ++j) {
             if (states->statesMatrix[i][j] == NoRoad) {
                 printf(" )");
                 break;
@@ -192,11 +194,11 @@ int main()
     int* citiesInStateArray = addCitiesInState(quantityOfCity);
     int quantityOfCitiesInState = quantityOfState;
     int** statesMatrix = addCapitalToStates(quantityOfCity, quantityOfState, citiesInStateArray, text);
-    States* states = createState(citiesInStateArray, statesMatrix, quantityOfState);
+    States* states = createState(citiesInStateArray, statesMatrix, quantityOfState, quantityOfCity);
     Graph* graphOfCities = createGraph(quantityOfRoads, quantityOfCity + 1, roads);
-    addingCitiesToStates(quantityOfCity, quantityOfState, quantityOfCitiesInState, graphOfCities, states);
+    addingCitiesToStates(quantityOfCitiesInState, graphOfCities, states);
 
-    printCities(states, quantityOfState, quantityOfCity);
+    printCities(states);
 
     fclose(text);
     deleteStates(states);
