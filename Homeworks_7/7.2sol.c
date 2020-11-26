@@ -85,13 +85,9 @@ Edge** getRoadsFromFile(int quantityOfRoads, FILE* file)
     return roads;
 }
 
-bool isCityInState(int* citiesInState, int citiesInStateNumber, int cityNumber)
+bool isCityInState(int* citiesInState, int cityNumber)
 {
-    bool isFind = false;
-    for (int i = 0; i < citiesInStateNumber; ++i) {
-        isFind += citiesInState[i] == cityNumber;
-    }
-    return isFind;
+    return citiesInState[cityNumber] == cityNumber;
 }
 
 int** allocStates(int quantityOfCities, int quantityOfState)
@@ -116,7 +112,7 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     for (int i = 0; i < quantityOfState; ++i) {
         citiesInState[i] = statesMatrix[i][0];
         statesMatrix[i][0] = getNumberFromFile(file) - 1;
-        citiesInState[i] = statesMatrix[i][0];
+        citiesInState[statesMatrix[i][0]] = statesMatrix[i][0];
     }
     return statesMatrix;
 }
@@ -141,7 +137,7 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
     for (int i = 0; i < toAddIndex; ++i) {
         for (int j = 0; j < quantityOfCity; ++j) {
             int currentLength = getLengthFromEdge(graphOfCities, states->statesMatrix[stateNumber][i], j);
-            isCurrentIndexes = !isCityInState(states->citiesInStateArray, citiesInState, j);
+            isCurrentIndexes = !isCityInState(states->citiesInStateArray, j);
             isNewMinimum = ((currentLength < shortestRoad) || isFirstLength);
             if (isCurrentIndexes && isNewMinimum) {
                 shortestRoad = currentLength;
@@ -151,7 +147,7 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
         }
     }
     states->statesMatrix[stateNumber][toAddIndex] = toAddCity;
-    states->citiesInStateArray[citiesInState] = toAddCity;
+    states->citiesInStateArray[toAddCity] = toAddCity;
     return citiesInState + 1;
 }
 
