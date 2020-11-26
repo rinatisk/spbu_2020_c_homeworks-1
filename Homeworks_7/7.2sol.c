@@ -114,7 +114,6 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     }
     int** statesMatrix = allocStates(quantityOfCities, quantityOfState);
     for (int i = 0; i < quantityOfState; ++i) {
-        citiesInState[i] = statesMatrix[i][0];
         statesMatrix[i][0] = getNumberFromFile(file) - 1;
         citiesInState[statesMatrix[i][0]] = statesMatrix[i][0];
     }
