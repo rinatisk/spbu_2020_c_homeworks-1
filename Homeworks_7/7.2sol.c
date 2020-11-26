@@ -74,12 +74,12 @@ int** allocStates(int quantityOfCities, int quantityOfState)
     if (quantityOfState == 0 || quantityOfCities == 0) {
         return NULL;
     }
-    int** states = malloc(quantityOfState * sizeof(int*));
+    int** statesMatrix = malloc(quantityOfState * sizeof(int*));
     for (int i = 0; i < quantityOfState; ++i) {
-        states[i] = (int*)malloc(quantityOfCities * sizeof(int));
-        memset(states[i], NoRoad, quantityOfCities * sizeof(int));
+        statesMatrix[i] = (int*)malloc(quantityOfCities * sizeof(int));
+        memset(statesMatrix[i], NoRoad, quantityOfCities * sizeof(int));
     }
-    return states;
+    return statesMatrix;
 }
 
 int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesInState, FILE* file)
@@ -87,21 +87,21 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     if (quantityOfState == 0 || quantityOfCities == 0 || citiesInState == NULL) {
         return NULL;
     }
-    int** states = allocStates(quantityOfCities, quantityOfState);
+    int** statesMatrix = allocStates(quantityOfCities, quantityOfState);
     for (int i = 0; i < quantityOfState; ++i) {
-        citiesInState[i] = states[i][0];
-        states[i][0] = getNumberFromFile(file) - 1;
-        citiesInState[i] = states[i][0];
+        citiesInState[i] = statesMatrix[i][0];
+        statesMatrix[i][0] = getNumberFromFile(file) - 1;
+        citiesInState[i] = statesMatrix[i][0];
     }
-    return states;
+    return statesMatrix;
 }
 
-int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, int* citiesInStateArray, int** states, int stateNumber)
+int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, int* citiesInStateArray, int** statesMatrix, int stateNumber)
 {
     int toAddCity = 0;
     int toAddIndex = 0;
     int shortestRoad = 0;
-    for (int i = 0; states[stateNumber][toAddIndex] != -1; ++i) {
+    for (int i = 0; statesMatrix[stateNumber][toAddIndex] != -1; ++i) {
         toAddIndex = i + 1;
     }
     bool isFirstLength = true;
@@ -109,7 +109,7 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
     bool isNewMinimum = false;
     for (int i = 0; i < toAddIndex; ++i) {
         for (int j = 0; j < quantityOfCity; ++j) {
-            int currentLength = getLengthFromEdge(graphOfCities, states[stateNumber][i], j);
+            int currentLength = getLengthFromEdge(graphOfCities, statesMatrix[stateNumber][i], j);
             isCurrentIndexes = !isCityInState(citiesInStateArray, citiesInState, j);
             isNewMinimum = ((currentLength < shortestRoad) || isFirstLength);
             if (isCurrentIndexes && isNewMinimum) {
@@ -119,21 +119,36 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
             }
         }
     }
-    states[stateNumber][toAddIndex] = toAddCity;
+    statesMatrix[stateNumber][toAddIndex] = toAddCity;
     citiesInStateArray[citiesInState] = toAddCity;
     return citiesInState + 1;
 }
 
-void printCities(int** states, int quantityOfState, int quantityOfCities)
+void addingCitiesToStates(int quantityOfCity, int quantityOfState, int quantityOfCitiesInState, Graph* graphOfCities, int* citiesInStateArray, int** statesMatrix)
+{
+    for (int loop = 0; loop < ((quantityOfCity - quantityOfState) / quantityOfState + 1); ++loop) {
+        if (quantityOfCitiesInState == quantityOfCity) {
+            break;
+        }
+        for (int i = 0; i < quantityOfState; ++i) {
+            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, quantityOfCity, citiesInStateArray, statesMatrix, i);
+            if (quantityOfCitiesInState == quantityOfCity) {
+                break;
+            }
+        }
+    }
+}
+
+void printCities(int** statesMatrix, int quantityOfState, int quantityOfCities)
 {
     for (int i = 0; i < quantityOfState; ++i) {
         printf("State - %d\nCities: (", i + 1);
         for (int j = 0; j < quantityOfCities; ++j) {
-            if (states[i][j] == NoRoad) {
+            if (statesMatrix[i][j] == NoRoad) {
                 printf(" )");
                 break;
             }
-            printf(" %d", states[i][j] + 1);
+            printf(" %d", statesMatrix[i][j] + 1);
         }
         printf("\n\n");
     }
@@ -142,6 +157,10 @@ void printCities(int** states, int quantityOfState, int quantityOfCities)
 int main()
 {
     FILE* text = fopen("../Homeworks_7/text.txt", "r");
+    if (text == NULL){
+        printf("couldn't open the file");
+        return -1;
+    }
 
     int quantityOfCity = getNumberFromFile(text);
     int quantityOfRoads = getNumberFromFile(text);
@@ -151,17 +170,7 @@ int main()
     int quantityOfCitiesInState = quantityOfState;
     int** states = addCapitalToStates(quantityOfCity, quantityOfState, citiesInStateArray, text);
     Graph* graphOfCities = createGraph(quantityOfRoads, quantityOfCity + 1, roads);
-    for (int loop = 0; loop < ((quantityOfCity - quantityOfState) / quantityOfState + 1); ++loop) {
-        if (quantityOfCitiesInState == quantityOfCity) {
-            break;
-        }
-        for (int i = 0; i < quantityOfState; ++i) {
-            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, quantityOfCity, citiesInStateArray, states, i);
-            if (quantityOfCitiesInState == quantityOfCity) {
-                break;
-            }
-        }
-    }
+    addingCitiesToStates(quantityOfCity, quantityOfState, quantityOfCitiesInState, graphOfCities, citiesInStateArray, states);
 
     printCities(states, quantityOfState, quantityOfCity);
 
