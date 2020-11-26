@@ -157,7 +157,7 @@ void addingCitiesToStates(int quantityOfCitiesInState, Graph* graphOfCities, Sta
         }
         for (int i = 0; i < states->quantityOfState; ++i) {
             quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, states->quantityOfCities, states, i);
-            if (quantityOfCitiesInState == states->quantityOfCities ) {
+            if (quantityOfCitiesInState == states->quantityOfCities) {
                 break;
             }
         }
