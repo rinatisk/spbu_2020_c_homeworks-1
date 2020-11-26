@@ -51,10 +51,14 @@ int getNumberFromFile(FILE* file)
     char* number = (char*)malloc(sizeof(char));
 
     int index = -1;
+    int size = 1;
 
     while (isdigit(number[index]) || index == -1) {
         ++index;
-        number = realloc(number, (index + 1) * sizeof(char));
+        if (size == index - 1) {
+            number = realloc(number, (size * 2) * sizeof(char));
+            size *= 2;
+        }
         number[index] = fgetc(file);
     }
     number[index] = '\n';
