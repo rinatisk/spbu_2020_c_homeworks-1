@@ -129,8 +129,6 @@ int findToAddIndex(States* states, int stateNumber)
     return toAddIndex;
 }
 
-
-
 int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
 {
     int toAddCity = 0;
