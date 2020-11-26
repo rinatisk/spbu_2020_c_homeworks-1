@@ -11,12 +11,12 @@ const int NoRoad = -1;
 
 typedef struct States {
     int** statesMatrix;
-    int* citiesInStateArray;
+    bool* citiesInStateArray;
     int quantityOfState;
     int quantityOfCities;
 } States;
 
-States* createState(int* citiesInStateArray, int** statesMatrix, int quantityOfState, int quantityOfCities)
+States* createState(bool* citiesInStateArray, int** statesMatrix, int quantityOfState, int quantityOfCities)
 {
     States* states = malloc(sizeof(States));
     states->statesMatrix = statesMatrix;
@@ -29,7 +29,7 @@ States* createState(int* citiesInStateArray, int** statesMatrix, int quantityOfS
 bool deleteStates(States* states)
 {
     dynamic_array_free(states->statesMatrix, states->quantityOfState);
-    dynamic_array_free_one_dim(states->citiesInStateArray);
+    free(states->citiesInStateArray);
     free(states);
     return true;
 }
@@ -67,13 +67,13 @@ int getNumberFromFile(FILE* file)
     return newNumber;
 }
 
-int* addCitiesInState(int quantityOfCity)
+bool* addCitiesInState(int quantityOfCity)
 {
     if (quantityOfCity <= 0) {
         return NULL;
     }
-    int* citiesInState = (int*)malloc(quantityOfCity * sizeof(int));
-    memset(citiesInState, NoRoad, quantityOfCity * sizeof(int));
+    bool* citiesInState = (bool*)malloc(quantityOfCity * sizeof(bool));
+    memset(citiesInState, false, quantityOfCity * sizeof(bool));
     return citiesInState;
 }
 
@@ -89,9 +89,9 @@ Edge** getRoadsFromFile(int quantityOfRoads, FILE* file)
     return roads;
 }
 
-bool isCityInState(int* citiesInState, int cityNumber)
+bool isCityInState(bool* citiesInState, int cityNumber)
 {
-    return citiesInState[cityNumber] == cityNumber;
+    return citiesInState[cityNumber];
 }
 
 int** allocStates(int quantityOfCities, int quantityOfState)
@@ -107,7 +107,7 @@ int** allocStates(int quantityOfCities, int quantityOfState)
     return statesMatrix;
 }
 
-int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesInState, FILE* file)
+int** addCapitalToStates(int quantityOfCities, int quantityOfState, bool* citiesInState, FILE* file)
 {
     if (quantityOfState == 0 || quantityOfCities == 0 || citiesInState == NULL) {
         return NULL;
@@ -115,7 +115,7 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     int** statesMatrix = allocStates(quantityOfCities, quantityOfState);
     for (int i = 0; i < quantityOfState; ++i) {
         statesMatrix[i][0] = getNumberFromFile(file) - 1;
-        citiesInState[statesMatrix[i][0]] = statesMatrix[i][0];
+        citiesInState[statesMatrix[i][0]] = true;
     }
     return statesMatrix;
 }
@@ -128,6 +128,8 @@ int findToAddIndex(States* states, int stateNumber)
     }
     return toAddIndex;
 }
+
+
 
 int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
 {
@@ -150,19 +152,28 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
         }
     }
     states->statesMatrix[stateNumber][toAddIndex] = toAddCity;
-    states->citiesInStateArray[toAddCity] = toAddCity;
+    states->citiesInStateArray[toAddCity] = true;
     return citiesInState + 1;
+}
+
+bool isAllCitiesInStates(States* states)
+{
+    bool isAllCitiesInStates = true;
+    for (int i = 0; i < states->quantityOfCities; ++i) {
+        isAllCitiesInStates *= states->citiesInStateArray[i];
+    }
+    return isAllCitiesInStates;
 }
 
 void addingCitiesToStates(int quantityOfCitiesInState, Graph* graphOfCities, States* states)
 {
     for (int loop = 0; loop < ((states->quantityOfCities - states->quantityOfState) / states->quantityOfState + 1); ++loop) {
-        if (quantityOfCitiesInState == states->quantityOfCities) {
+        if (isAllCitiesInStates(states)) {
             break;
         }
         for (int i = 0; i < states->quantityOfState; ++i) {
             quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, states->quantityOfCities, states, i);
-            if (quantityOfCitiesInState == states->quantityOfCities) {
+            if (isAllCitiesInStates(states)) {
                 break;
             }
         }
@@ -192,7 +203,7 @@ int main()
     int quantityOfRoads = getNumberFromFile(text);
     Edge** roads = getRoadsFromFile(quantityOfRoads, text);
     int quantityOfState = getNumberFromFile(text);
-    int* citiesInStateArray = addCitiesInState(quantityOfCity);
+    bool* citiesInStateArray = addCitiesInState(quantityOfCity);
     int quantityOfCitiesInState = quantityOfState;
     int** statesMatrix = addCapitalToStates(quantityOfCity, quantityOfState, citiesInStateArray, text);
     States* states = createState(citiesInStateArray, statesMatrix, quantityOfState, quantityOfCity);
