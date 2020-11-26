@@ -129,10 +129,9 @@ int findToAddIndex(States* states, int stateNumber)
     return toAddIndex;
 }
 
-int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
+int findToAddCity(Graph* graphOfCities, int quantityOfCity, States* states, int stateNumber, int toAddIndex)
 {
     int toAddCity = 0;
-    int toAddIndex = findToAddIndex(states, stateNumber);
     int shortestRoad = 0;
     bool isFirstLength = true;
     bool isCurrentIndexes = false;
@@ -149,6 +148,13 @@ int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, 
             }
         }
     }
+    return toAddCity;
+}
+
+int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
+{
+    int toAddIndex = findToAddIndex(states, stateNumber);
+    int toAddCity = findToAddCity(graphOfCities, quantityOfCity, states, stateNumber, toAddIndex);
     states->statesMatrix[stateNumber][toAddIndex] = toAddCity;
     states->citiesInStateArray[toAddCity] = true;
     return citiesInState + 1;
