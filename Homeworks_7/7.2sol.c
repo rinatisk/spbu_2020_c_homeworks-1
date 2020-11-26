@@ -121,14 +121,20 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, int* citiesI
     return statesMatrix;
 }
 
-int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
+int findToAddIndex(States* states, int stateNumber)
 {
-    int toAddCity = 0;
     int toAddIndex = 0;
-    int shortestRoad = 0;
     for (int i = 0; states->statesMatrix[stateNumber][toAddIndex] != -1; ++i) {
         toAddIndex = i + 1;
     }
+    return toAddIndex;
+}
+
+int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
+{
+    int toAddCity = 0;
+    int toAddIndex = findToAddIndex(states, stateNumber);
+    int shortestRoad = 0;
     bool isFirstLength = true;
     bool isCurrentIndexes = false;
     bool isNewMinimum = false;
@@ -167,15 +173,11 @@ void addingCitiesToStates(int quantityOfCitiesInState, Graph* graphOfCities, Sta
 void printCities(States* states)
 {
     for (int i = 0; i < states->quantityOfState; ++i) {
-        printf("State - %d\nCities: (", i + 1);
-        for (int j = 0; j < states->quantityOfCities; ++j) {
-            if (states->statesMatrix[i][j] == NoRoad) {
-                printf(" )");
-                break;
-            }
+        printf("State with capital - %d\nCities: (", states->statesMatrix[i][0] + 1);
+        for (int j = 0; states->statesMatrix[i][j] != NoRoad; ++j) {
             printf(" %d", states->statesMatrix[i][j] + 1);
         }
-        printf("\n\n");
+        printf(" )\n\n");
     }
 }
 
