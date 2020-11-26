@@ -12,14 +12,24 @@ const int NoRoad = -1;
 typedef struct States {
     int** statesMatrix;
     int* citiesInStateArray;
+    int quantityOfState;
 } States;
 
-States* createState(int* citiesInStateArray, int** statesMatrix)
+States* createState(int* citiesInStateArray, int** statesMatrix, int quantityOfState)
 {
     States* states = malloc(sizeof(States));
     states->statesMatrix = statesMatrix;
     states->citiesInStateArray = citiesInStateArray;
+    states->quantityOfState = quantityOfState;
     return states;
+}
+
+bool deleteStates(States* states)
+{
+    dynamic_array_free(states->statesMatrix, states->quantityOfState);
+    dynamic_array_free_one_dim(states->citiesInStateArray);
+    free(states);
+    return true;
 }
 
 int getNewNumber(char* string)
@@ -182,15 +192,14 @@ int main()
     int* citiesInStateArray = addCitiesInState(quantityOfCity);
     int quantityOfCitiesInState = quantityOfState;
     int** statesMatrix = addCapitalToStates(quantityOfCity, quantityOfState, citiesInStateArray, text);
-    States* states = createState(citiesInStateArray, statesMatrix);
+    States* states = createState(citiesInStateArray, statesMatrix, quantityOfState);
     Graph* graphOfCities = createGraph(quantityOfRoads, quantityOfCity + 1, roads);
     addingCitiesToStates(quantityOfCity, quantityOfState, quantityOfCitiesInState, graphOfCities, states);
 
     printCities(states, quantityOfState, quantityOfCity);
 
     fclose(text);
-    free(citiesInStateArray);
-    dynamic_array_free(statesMatrix, quantityOfState);
+    deleteStates(states);
     removeEdgeArray(roads, quantityOfRoads);
     removeGraph(graphOfCities);
 
