@@ -151,13 +151,16 @@ int findToAddCity(Graph* graphOfCities, int quantityOfCity, States* states, int 
     return toAddCity;
 }
 
-int addCityToState(Graph* graphOfCities, int citiesInState, int quantityOfCity, States* states, int stateNumber)
+bool addCityToState(Graph* graphOfCities, int quantityOfCity, States* states, int stateNumber)
 {
+    if (graphOfCities == NULL || states == NULL || quantityOfCity == 0) {
+        return false;
+    }
     int toAddIndex = findToAddIndex(states, stateNumber);
     int toAddCity = findToAddCity(graphOfCities, quantityOfCity, states, stateNumber, toAddIndex);
     states->statesMatrix[stateNumber][toAddIndex] = toAddCity;
     states->citiesInStateArray[toAddCity] = true;
-    return citiesInState + 1;
+    return true;
 }
 
 bool isAllCitiesInStates(States* states)
@@ -169,14 +172,14 @@ bool isAllCitiesInStates(States* states)
     return isAllCitiesInStates;
 }
 
-void addingCitiesToStates(int quantityOfCitiesInState, Graph* graphOfCities, States* states)
+void addingCitiesToStates(Graph* graphOfCities, States* states)
 {
     for (int loop = 0; loop < ((states->quantityOfCities - states->quantityOfState) / states->quantityOfState + 1); ++loop) {
         if (isAllCitiesInStates(states)) {
             break;
         }
         for (int i = 0; i < states->quantityOfState; ++i) {
-            quantityOfCitiesInState = addCityToState(graphOfCities, quantityOfCitiesInState, states->quantityOfCities, states, i);
+            addCityToState(graphOfCities, states->quantityOfCities, states, i);
             if (isAllCitiesInStates(states)) {
                 break;
             }
@@ -208,11 +211,10 @@ int main()
     Edge** roads = getRoadsFromFile(quantityOfRoads, text);
     int quantityOfState = getNumberFromFile(text);
     bool* citiesInStateArray = addCitiesInState(quantityOfCity);
-    int quantityOfCitiesInState = quantityOfState;
     int** statesMatrix = addCapitalToStates(quantityOfCity, quantityOfState, citiesInStateArray, text);
     States* states = createState(citiesInStateArray, statesMatrix, quantityOfState, quantityOfCity);
     Graph* graphOfCities = createGraph(quantityOfRoads, quantityOfCity + 1, roads);
-    addingCitiesToStates(quantityOfCitiesInState, graphOfCities, states);
+    addingCitiesToStates(graphOfCities, states);
 
     printCities(states);
 
