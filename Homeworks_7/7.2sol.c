@@ -12,7 +12,7 @@ const int NoRoad = -1;
 typedef struct States {
     int** statesMatrix;
     int* citiesInStateArray;
-}States;
+} States;
 
 States* createState(int* citiesInStateArray, int** statesMatrix)
 {
