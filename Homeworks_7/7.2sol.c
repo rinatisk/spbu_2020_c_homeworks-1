@@ -24,7 +24,7 @@ States* createState(bool* citiesInStateArray, int** statesMatrix, int quantityOf
     states->quantityOfCities = quantityOfCities;
     states->sizeOfState = calloc(states->quantityOfState, sizeof(int));
     for (int i = 0; i < quantityOfState; ++i) {
-       states->sizeOfState[i] = 1;
+        states->sizeOfState[i] = 1;
     }
     return states;
 }
