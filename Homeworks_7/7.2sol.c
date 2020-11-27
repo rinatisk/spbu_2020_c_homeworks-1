@@ -7,13 +7,12 @@
 #include "../library/commonUtils/arrayOperations.h"
 #include "../library/commonUtils/graph.h"
 
-const int NoRoad = -1;
-
 typedef struct States {
     int** statesMatrix;
     bool* citiesInStateArray;
     int quantityOfState;
     int quantityOfCities;
+    int* sizeOfState;
 } States;
 
 States* createState(bool* citiesInStateArray, int** statesMatrix, int quantityOfState, int quantityOfCities)
@@ -23,12 +22,17 @@ States* createState(bool* citiesInStateArray, int** statesMatrix, int quantityOf
     states->citiesInStateArray = citiesInStateArray;
     states->quantityOfState = quantityOfState;
     states->quantityOfCities = quantityOfCities;
+    states->sizeOfState = calloc(states->quantityOfState, sizeof(int));
+    for (int i = 0; i < quantityOfState; ++i) {
+       states->sizeOfState[i] = 1;
+    }
     return states;
 }
 
 bool deleteStates(States* states)
 {
     dynamic_array_free(states->statesMatrix, states->quantityOfState);
+    dynamic_array_free_one_dim(states->sizeOfState);
     free(states->citiesInStateArray);
     free(states);
     return true;
@@ -101,8 +105,7 @@ int** allocStates(int quantityOfCities, int quantityOfState)
     }
     int** statesMatrix = malloc(quantityOfState * sizeof(int*));
     for (int i = 0; i < quantityOfState; ++i) {
-        statesMatrix[i] = (int*)malloc(quantityOfCities * sizeof(int));
-        memset(statesMatrix[i], NoRoad, quantityOfCities * sizeof(int));
+        statesMatrix[i] = (int*)calloc(quantityOfCities, sizeof(int));
     }
     return statesMatrix;
 }
@@ -122,10 +125,7 @@ int** addCapitalToStates(int quantityOfCities, int quantityOfState, bool* cities
 
 int findToAddIndex(States* states, int stateNumber)
 {
-    int toAddIndex = 0;
-    for (int i = 0; states->statesMatrix[stateNumber][toAddIndex] != -1; ++i) {
-        toAddIndex = i + 1;
-    }
+    int toAddIndex = states->sizeOfState[stateNumber];
     return toAddIndex;
 }
 
@@ -159,6 +159,7 @@ bool addNewCityToState(Graph* graphOfCities, States* states, int stateNumber)
     int toAddIndex = findToAddIndex(states, stateNumber);
     int toAddCity = findToAddCity(graphOfCities, states, stateNumber, toAddIndex);
     states->statesMatrix[stateNumber][toAddIndex] = toAddCity;
+    ++states->sizeOfState[stateNumber];
     states->citiesInStateArray[toAddCity] = true;
     return true;
 }
@@ -188,7 +189,7 @@ void printCities(States* states)
 {
     for (int i = 0; i < states->quantityOfState; ++i) {
         printf("State with capital - %d\nCities: (", states->statesMatrix[i][0] + 1);
-        for (int j = 0; states->statesMatrix[i][j] != NoRoad; ++j) {
+        for (int j = 0; j < states->sizeOfState[i]; ++j) {
             printf(" %d", states->statesMatrix[i][j] + 1);
         }
         printf(" )\n\n");
