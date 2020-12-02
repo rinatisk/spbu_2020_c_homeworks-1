@@ -57,3 +57,6 @@ add_executable(sol7_1 Homeworks_7/7.1sol.c)
 target_link_libraries(sol7_1 library)
 
 add_executable(test2.1 test2/2.1test.c)
+
+add_executable(7.2sol Homeworks_7/7.2sol.c)
+target_link_libraries(7.2sol library)

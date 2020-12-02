@@ -17,5 +17,6 @@ int getOriginalAuthor(Graph* graphOfStudents, int studentNumber);
 bool removeGraph(Graph* toRemoveGraph);
 bool removeEdgeArray(Edge** toRemoveEdgeArray, int sizeOfArray);
 bool removeEdge(Edge* toRemoveEdge);
+int getLengthFromEdge(Graph* graph, int fromVertex, int toVertex);
 
 #endif //SPBU_2020_C_HOMEWORKS_1_GRAPH_H

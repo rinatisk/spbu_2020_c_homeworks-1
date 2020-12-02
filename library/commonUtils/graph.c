@@ -28,6 +28,11 @@ Edge* createEdge(int start, int end, int weight, bool oriented)
     return edge;
 }
 
+int getLengthFromEdge(Graph* graph, int fromVertex, int toVertex)
+{
+    return graph->matrix[fromVertex][toVertex];
+}
+
 bool removeEdge(Edge* toRemoveEdge)
 {
     if (toRemoveEdge == NULL) {
