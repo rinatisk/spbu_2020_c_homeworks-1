@@ -29,6 +29,8 @@ bool createTransitions(DFAState** states)
     addTransition(states[5], IS_DIGIT, states[7]);
     addTransition(states[6], IS_DIGIT, states[7]);
     addTransition(states[7], IS_DIGIT, states[7]);
+
+    return true;
 }
 
 DFAState** createDFAStates()
