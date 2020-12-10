@@ -54,23 +54,23 @@ DFAState** createDFAStates()
     DFAState* initial = createDFAState(false);
     states[0] = initial;
 
-    DFAState* dot = createDFAState(false);
-    states[3] = dot;
-
     DFAState* signOfNumber = createDFAState(false);
     states[1] = signOfNumber;
-
-    DFAState* signOfExponent = createDFAState(false);
-    states[6] = signOfExponent;
-
-    DFAState* exponentSymbol = createDFAState(false);
-    states[5] = exponentSymbol;
 
     DFAState* digitOfNumber = createDFAState(true);
     states[2] = digitOfNumber;
 
+    DFAState* dot = createDFAState(false);
+    states[3] = dot;
+
     DFAState* digitOfFractionalPart = createDFAState(true);
     states[4] = digitOfFractionalPart;
+    
+    DFAState* exponentSymbol = createDFAState(false);
+    states[5] = exponentSymbol;
+
+    DFAState* signOfExponent = createDFAState(false);
+    states[6] = signOfExponent;
 
     DFAState* digitOfExponent = createDFAState(true);
     states[7] = digitOfExponent;
