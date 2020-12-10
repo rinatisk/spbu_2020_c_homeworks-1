@@ -65,7 +65,7 @@ DFAState** createDFAStates()
 
     DFAState* digitOfFractionalPart = createDFAState(true);
     states[4] = digitOfFractionalPart;
-    
+
     DFAState* exponentSymbol = createDFAState(false);
     states[5] = exponentSymbol;
 
