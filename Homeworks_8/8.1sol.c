@@ -13,21 +13,35 @@ bool createTransitions(DFAState** states)
         return false;
     }
 
+    //from initial to sign and digit of number
     addTransition(states[0], '+', states[1]);
     addTransition(states[0], '-', states[1]);
-    addTransition(states[2], '.', states[3]);
+    addTransition(states[0], IS_DIGIT, states[2]);
+
+    //from sign to digit of number
+    addTransition(states[1], IS_DIGIT, states[2]);
+
+    //from digit of number to fractional part or exponent part or to next digit
+    addTransition(states[2], IS_DIGIT, states[2]);
     addTransition(states[2], 'E', states[5]);
+    addTransition(states[2], '.', states[3]);
+
+    //from dot to digit of fractional part
+    addTransition(states[3], IS_DIGIT, states[4]);
+
+    //from digit of fractional part to exponent part or to next digit
     addTransition(states[4], 'E', states[5]);
+    addTransition(states[4], IS_DIGIT, states[4]);
+
+    //from exponent to digits of exponent part or exponent sign
+    addTransition(states[5], IS_DIGIT, states[7]);
     addTransition(states[5], '+', states[6]);
     addTransition(states[5], '-', states[6]);
 
-    addTransition(states[0], IS_DIGIT, states[2]);
-    addTransition(states[1], IS_DIGIT, states[2]);
-    addTransition(states[2], IS_DIGIT, states[2]);
-    addTransition(states[3], IS_DIGIT, states[4]);
-    addTransition(states[4], IS_DIGIT, states[4]);
-    addTransition(states[5], IS_DIGIT, states[7]);
+    //from sign of exponent part to digit of exponent part
     addTransition(states[6], IS_DIGIT, states[7]);
+
+    //from digit of exponent part to next digit
     addTransition(states[7], IS_DIGIT, states[7]);
 
     return true;
@@ -37,8 +51,8 @@ DFAState** createDFAStates()
 {
     DFAState** states = (DFAState**)malloc(NUMBER_OF_DFA_STATES * sizeof(DFAState*));
 
-    DFAState* startState = createDFAState(false);
-    states[0] = startState;
+    DFAState* initial = createDFAState(false);
+    states[0] = initial;
 
     DFAState* dot = createDFAState(false);
     states[3] = dot;
