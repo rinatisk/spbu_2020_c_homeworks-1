@@ -1,10 +1,7 @@
 #include "dfa.h"
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-
-const char DIGIT = '0';
 
 typedef struct Transition {
     char symbol;
@@ -97,7 +94,7 @@ bool isExpressionValid(DFA* DFA, char* expression, int lengthOfExpression)
     DFAState* currentDfaState = DFA->initialState;
     char toCheckSymbol = expression[0];
     for (int i = 0; i < lengthOfExpression; ++i) {
-        toCheckSymbol = isdigit(expression[i]) != 0 ? DIGIT : expression[i];
+        toCheckSymbol = expression[i];
         isFind = false;
         for (int j = 0; j < currentDfaState->transitionsSize; ++j) {
             if (toCheckSymbol == currentDfaState->transitions[j]->symbol) {

@@ -13,6 +13,7 @@ set(SOURCE_LIB
         library/commonUtils/bst.c
         library/commonUtils/graph.c
         library/commonUtils/dfa.c
+        library/commonUtils/stringOperations.c
 )
 
 add_library(library ${SOURCE_LIB})

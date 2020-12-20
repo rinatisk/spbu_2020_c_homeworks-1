@@ -1,51 +1,15 @@
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "../library/commonUtils/dfa.h"
+#include "../library/commonUtils/stringOperations.h"
 
 const int NUMBER_OF_DFA_STATES = 8;
-const char IS_DIGIT = '0';
 
-bool createTransitions(DFAState** states)
-{
-    if (states == NULL) {
-        return false;
-    }
-
-    //from initial to sign and digit of number
-    addTransition(states[0], '+', states[1]);
-    addTransition(states[0], '-', states[1]);
-    addTransition(states[0], IS_DIGIT, states[2]);
-
-    //from sign to digit of number
-    addTransition(states[1], IS_DIGIT, states[2]);
-
-    //from digit of number to fractional part or exponent part or to next digit
-    addTransition(states[2], IS_DIGIT, states[2]);
-    addTransition(states[2], 'E', states[5]);
-    addTransition(states[2], '.', states[3]);
-
-    //from dot to digit of fractional part
-    addTransition(states[3], IS_DIGIT, states[4]);
-
-    //from digit of fractional part to exponent part or to next digit
-    addTransition(states[4], 'E', states[5]);
-    addTransition(states[4], IS_DIGIT, states[4]);
-
-    //from exponent to digits of exponent part or exponent sign
-    addTransition(states[5], IS_DIGIT, states[7]);
-    addTransition(states[5], '+', states[6]);
-    addTransition(states[5], '-', states[6]);
-
-    //from sign of exponent part to digit of exponent part
-    addTransition(states[6], IS_DIGIT, states[7]);
-
-    //from digit of exponent part to next digit
-    addTransition(states[7], IS_DIGIT, states[7]);
-
-    return true;
-}
+// const to create a transition for all digits
+const char DIGIT = 'D';
 
 DFAState** createDFAStates()
 {
@@ -75,7 +39,36 @@ DFAState** createDFAStates()
     DFAState* digitOfExponent = createDFAState(true);
     states[7] = digitOfExponent;
 
-    createTransitions(states);
+    //from initial to sign and digit of number
+    addTransition(initial, '+', signOfNumber);
+    addTransition(initial, '-', signOfNumber);
+    addTransition(initial, DIGIT, digitOfNumber);
+
+    //from sign to digit of number
+    addTransition(signOfNumber, DIGIT, digitOfNumber);
+
+    //from digit of number to fractional part or exponent part or to next digit
+    addTransition(digitOfNumber, DIGIT, digitOfNumber);
+    addTransition(digitOfNumber, 'E', exponentSymbol);
+    addTransition(digitOfNumber, '.', dot);
+
+    //from dot to digit of fractional part
+    addTransition(dot, DIGIT, digitOfFractionalPart);
+
+    //from digit of fractional part to exponent part or to next digit
+    addTransition(digitOfFractionalPart, 'E', exponentSymbol);
+    addTransition(digitOfFractionalPart, DIGIT, digitOfFractionalPart);
+
+    //from exponent to digits of exponent part or exponent sign
+    addTransition(exponentSymbol, DIGIT, digitOfExponent);
+    addTransition(exponentSymbol, '+', signOfExponent);
+    addTransition(exponentSymbol, '-', signOfExponent);
+
+    //from sign of exponent part to digit of exponent part
+    addTransition(signOfExponent, DIGIT, digitOfExponent);
+
+    //from digit of exponent part to next digit
+    addTransition(digitOfExponent, DIGIT, digitOfExponent);
 
     return states;
 }
@@ -99,21 +92,11 @@ void printInfoAboutExpression(bool isValid)
 
 char* getExpression(int* lengthOfExpression)
 {
-    int currentLengthOfExpression = 1;
-    char* expression = calloc(currentLengthOfExpression, sizeof(char));
-    char newSymbol = ' ';
-    int toAddIndex = -1;
-    scanf("%c", &newSymbol);
-    while (newSymbol != '\n') {
-        ++toAddIndex;
-        if (toAddIndex + 1 == currentLengthOfExpression) {
-            expression = realloc(expression, currentLengthOfExpression * 2 * sizeof(char));
-            currentLengthOfExpression *= 2;
-        }
-        expression[toAddIndex] = newSymbol;
-        scanf("%c", &newSymbol);
+    char* expression = getString(lengthOfExpression);
+    for (int i = 0; i < *lengthOfExpression; ++i) {
+        if (isdigit(expression[i]) != 0)
+            expression[i] = DIGIT;
     }
-    *lengthOfExpression = toAddIndex;
     return expression;
 }
 
