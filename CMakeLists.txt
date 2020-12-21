@@ -12,6 +12,8 @@ set(SOURCE_LIB
         library/commonUtils/avl.c
         library/commonUtils/bst.c
         library/commonUtils/graph.c
+        library/commonUtils/dfa.c
+        library/commonUtils/stringOperations.c
 )
 
 add_library(library ${SOURCE_LIB})
@@ -60,3 +62,6 @@ add_executable(test2.2 test2/2.2sol.c)
 
 add_executable(7.2sol Homeworks_7/7.2sol.c)
 target_link_libraries(7.2sol library)
+
+add_executable(8.1sol Homeworks_8/8.1sol.c)
+target_link_libraries(8.1sol library)
