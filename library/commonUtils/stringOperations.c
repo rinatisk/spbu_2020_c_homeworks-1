@@ -19,6 +19,6 @@ char* getString(int* lengthOfExpression)
         expression[toAddIndex] = newSymbol;
         scanf("%c", &newSymbol);
     }
-    *lengthOfExpression = toAddIndex;
+    *lengthOfExpression = toAddIndex + 1;
     return expression;
 }
