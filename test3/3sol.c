@@ -50,14 +50,27 @@ DFAState** createDFAStates()
     addTransition(initial, '-', firstPart);
 
     addTransition(firstPart, '@', atSymbol);
+    addTransition(firstPart, LETTER, firstPart);
+    addTransition(firstPart, DIGIT, firstPart);
+    addTransition(firstPart, '.', firstPart);
+    addTransition(firstPart, '_', firstPart);
+    addTransition(firstPart, '%', firstPart);
+    addTransition(firstPart, '+', firstPart);
+    addTransition(firstPart, '-', firstPart);
 
     addTransition(atSymbol, DIGIT, secondPart);
     addTransition(atSymbol, LETTER, secondPart);
     addTransition(atSymbol, '-', secondPart);
 
     addTransition(secondPart, '.', dot);
+    addTransition(secondPart, DIGIT, secondPart);
+    addTransition(secondPart, LETTER, secondPart);
+    addTransition(secondPart, '-', secondPart);
 
     addTransition(dot, LETTER, thirdPart);
+    addTransition(dot, DIGIT, secondPart);
+    addTransition(dot, LETTER, secondPart);
+    addTransition(dot, '-', secondPart);
 
     return states;
 }
