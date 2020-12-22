@@ -72,6 +72,10 @@ DFAState** createDFAStates()
     addTransition(dot, LETTER, secondPart);
     addTransition(dot, '-', secondPart);
 
+    addTransition(thirdPart, DIGIT, secondPart);
+    addTransition(thirdPart, LETTER, secondPart);
+    addTransition(thirdPart, '-', secondPart);
+
     return states;
 }
 
