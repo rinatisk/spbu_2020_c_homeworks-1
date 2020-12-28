@@ -67,3 +67,6 @@ target_link_libraries(7.2sol library)
 
 add_executable(8.1sol Homeworks_8/8.1sol.c)
 target_link_libraries(8.1sol library)
+
+add_executable(test3.1 test3/3sol.c)
+target_link_libraries(test3.1 library)
